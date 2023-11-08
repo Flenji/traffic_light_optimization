@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-10-26 18:28:21 by Eclipse SUMO GUI Version 1.18.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="fumocrossing.net.xml"/>
+        <route-files value="fumocrossing.rou.xml"/>
+        <additional-files value="fumocrossing.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+    </output>
+
+    <traci_server>
+        <remote-port value="58151"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<e3Detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e3_file.xsd">
+   <interval begin="0.00" end="300.00" id="verd" meanTravelTime="3.33" meanOverlapTravelTime="4.21" meanSpeed="6.64" meanHaltsPerVehicle="0.29" meanTimeLoss="2.57" vehicleSum="28" meanSpeedWithin="5.03" meanHaltsPerVehicleWithin="0.67" meanDurationWithin="4.52" vehicleSumWithin="3" meanIntervalSpeedWithin="5.03" meanIntervalHaltsPerVehicleWithin="0.67" meanIntervalDurationWithin="4.52" meanTimeLossWithin="2.59"/>
+   <interval begin="300.00" end="600.00" id="verd" meanTravelTime="6.03" meanOverlapTravelTime="7.30" meanSpeed="4.41" meanHaltsPerVehicle="0.63" meanTimeLoss="5.92" vehicleSum="41" meanSpeedWithin="5.57" meanHaltsPerVehicleWithin="0.00" meanDurationWithin="4.15" vehicleSumWithin="1" meanIntervalSpeedWithin="5.57" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="4.15" meanTimeLossWithin="2.08"/>
+   <interval begin="600.00" end="900.00" id="verd" meanTravelTime="5.29" meanOverlapTravelTime="6.42" meanSpeed="5.13" meanHaltsPerVehicle="0.46" meanTimeLoss="4.93" vehicleSum="48" meanSpeedWithin="10.19" meanHaltsPerVehicleWithin="0.00" meanDurationWithin="1.27" vehicleSumWithin="1" meanIntervalSpeedWithin="10.19" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.27" meanTimeLossWithin="0.00"/>
+   <interval begin="900.00" end="1200.00" id="verd" meanTravelTime="4.37" meanOverlapTravelTime="5.53" meanSpeed="5.52" meanHaltsPerVehicle="0.44" meanTimeLoss="4.04" vehicleSum="41" meanSpeedWithin="3.31" meanHaltsPerVehicleWithin="1.00" meanDurationWithin="7.24" vehicleSumWithin="1" meanIntervalSpeedWithin="3.31" meanIntervalHaltsPerVehicleWithin="1.00" meanIntervalDurationWithin="7.24" meanTimeLossWithin="5.04"/>
+   <interval begin="1200.00" end="1500.00" id="verd" meanTravelTime="6.15" meanOverlapTravelTime="7.99" meanSpeed="3.95" meanHaltsPerVehicle="0.61" meanTimeLoss="6.53" vehicleSum="41" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+   <interval begin="1500.00" end="1799.00" id="verd" meanTravelTime="6.69" meanOverlapTravelTime="8.14" meanSpeed="3.64" meanHaltsPerVehicle="0.73" meanTimeLoss="6.69" vehicleSum="33" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+</e3Detector>
