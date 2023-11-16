@@ -25,9 +25,9 @@
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="-1850.00,-2900.00" convBoundary="150.00,300.00,600.00,750.00" origBoundary="1850.00,2900.00,2600.00,3650.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,400.00,400.00" origBoundary="0.00,0.00,400.00,400.00" projParameter="!"/>
 
     <edge id=":1_0" function="internal">
         <lane id=":1_0_0" index="0" speed="13.89" length="5.00" shape="295.05,608.05 294.86,606.69 294.28,605.73 293.31,605.14 291.95,604.95"/>
