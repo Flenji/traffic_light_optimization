@@ -15,8 +15,8 @@ import utility
 import os
 import custom_observation 
 
-env = sumo_rl.parallel_env(net_file='fumocrossing/IV/IV.net.xml',
-                  route_file='fumocrossing/IV/IV.rou.xml',
+env = sumo_rl.parallel_env(net_file='fumos/IV/IV.net.xml',
+                  route_file='fumos/IV/IV.rou.xml',
                   use_gui=True,
                   num_seconds=3600,
                   observation_class = custom_observation.CustomObservationFunction,
