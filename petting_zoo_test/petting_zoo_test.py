@@ -15,25 +15,26 @@ import utility
 import os
 import custom_observation 
 
-env = sumo_rl.parallel_env(net_file='fumocrossing/fumocrossing.net.xml',
-                  route_file='fumocrossing/fumocrossing.rou.xml',
+env = sumo_rl.parallel_env(net_file='fumocrossing/second.net.xml',
+                  route_file='fumocrossing/second.rou.xml',
                   use_gui=True,
-                  num_seconds=3000,
+                  num_seconds=1500,
                   observation_class = custom_observation.CustomObservationFunction,
-                  reward_fn = "average-speed")
+                  reward_fn = "average-speed",
+                  )
 # environment = AECEnv(env)
 # environment.render_mode = "human"   
 # env.env_params.additional_params.render_mode = "human"
 
 
-scores = [] #keeping track of scores and epsilons for vizualization
-epsilons = []
+scores = [] #utility.load_object("scores") #keeping track of scores and epsilons for vizualization
+epsilons = []#utility.load_object("epsilons")
 
-ddqn_agent = ddqn.Agent(learning_rate = 0.00025, input_dim = (8,), n_actions = 2, \
-                        mem_size = 3000000, batch_size = 36, name = "ddqn", \
-                            checkpoint_dir = "model_checkpoint")
+ddqn_agent = ddqn.Agent(learning_rate = 0.00025, input_dim = (8,), n_actions = 4, \
+                        mem_size = 3000000, eps_dec = 1e-6, batch_size = 36, name = "ddqn", \
+                            checkpoint_dir = "results\\third_iteration")
 
-#ddqn_agent.load_model() #loading a trained model
+ddqn_agent.load_model() #loading a trained model
 
 for n in range(1):    
     observations = env.reset()[0]
@@ -60,12 +61,12 @@ for n in range(1):
         epsilons.append(ddqn_agent.epsilon)
     
     if n % 10 == 0:
-        ddqn_agent.save_model()
-        utility.save_object(scores, "scores")
-        utility.save_object(epsilons, "epsilons")
+        #ddqn_agent.save_model()
+        #utility.save_object(scores, "scores")
+        #utility.save_object(epsilons, "epsilons")
         print(f"current epsilon: {ddqn_agent.epsilon}")
 
 env.close()
-utility.plot_learning_curve(scores, epsilons, filename = "iteration_2", path="plotting", mean_over=100)
+utility.plot_learning_curve(scores, epsilons, filename = "iteration_3", path="plotting", mean_over=100)
 
 
