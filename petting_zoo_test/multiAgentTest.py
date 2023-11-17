@@ -15,15 +15,10 @@ import utility
 import os
 import custom_observation 
 
-<<<<<<< HEAD
-env = sumo_rl.parallel_env(net_file='fumocrossing/2x2.net.xml',
-                  route_file='fumocrossing/2x2.rou.xml',
-                  use_gui=False,
-=======
+
 env = sumo_rl.parallel_env(net_file='fumos/IV/IV.net.xml',
                   route_file='fumos/IV/IV.rou.xml',
                   use_gui=True,
->>>>>>> main
                   num_seconds=3600,
                   observation_class = custom_observation.CustomObservationFunction,
                   reward_fn = "average-speed",
