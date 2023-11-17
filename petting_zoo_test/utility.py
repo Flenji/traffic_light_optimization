@@ -64,7 +64,7 @@ def plot_learning_curve(scores, epsilons, filename, path ="", mean_over = 10):
 
     plt.savefig(filename)
     
-def plot_learning_curves(scores, epsilons, filename,  path = "", mean_over = 10):
+def plot_learning_curves(scores, epsilons, nrows, ncols,  filename, figsize=(15, 8),  path = "", mean_over = 10):
     
     n_agents = len(scores)
     
@@ -84,11 +84,8 @@ def plot_learning_curves(scores, epsilons, filename,  path = "", mean_over = 10)
         
     x = np.arange(N) * mean_over
     
-    
-    nrows = 2 
-    ncols = 2
     # Create a figure and a 2D array of subplots
-    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(15, 8), sharey=True, sharex= True) 
+    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=figsize, sharey=True, sharex= True) 
     
     
     eps_color = "#991203"
@@ -119,11 +116,5 @@ def plot_learning_curves(scores, epsilons, filename,  path = "", mean_over = 10)
             
         if row_idx == nrows-1:
             ax.set_xlabel("Learning Steps")
-    
-import utility
-
-
-
-
-    
-    
+            
+        plt.savefig(filename)
