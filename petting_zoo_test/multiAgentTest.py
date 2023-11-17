@@ -9,15 +9,15 @@ import sumo_rl
 from pettingzoo import AECEnv
 import matplotlib.pyplot as plt
 import numpy as np
-import matplotlib as mpl
+#import matplotlib as mpl
 import ddqn
 import utility
 import os
 import custom_observation 
 
-env = sumo_rl.parallel_env(net_file='fumocrossing/third1.net.xml',
-                  route_file='fumocrossing/third1.rou.xml',
-                  use_gui=True,
+env = sumo_rl.parallel_env(net_file='fumocrossing/third_simple.net.xml',
+                  route_file='fumocrossing/third_simple.rou.xml',
+                  use_gui=False,
                   num_seconds=3600,
                   observation_class = custom_observation.CustomObservationFunction,
                   reward_fn = "average-speed",
@@ -36,8 +36,13 @@ checkpoint_dir = "results\\fourth_iteration"
 
 ### Setting the DDQN Agent for every possible agent
 agents = dict.fromkeys(env.possible_agents)
+scores = dict.fromkeys(env.possible_agents)
+epsilons = []
 
 for agent in agents.keys():
+    
+    scores[agent] = []
+    
     input_shape = env.observation_space(agent).shape
     n_actions = env.action_space(agent).n
     name = agent + "_ddqn"
@@ -66,7 +71,9 @@ while env.agents:
         
         
         agents[agent].learn(obs, action, reward, obs_, done)
+        scores[agent].append(reward)
         
+    epsilons.append(agents[agent].epsilon)    
     observations = observations_ #setting new observation as current observation
 env.close()
 

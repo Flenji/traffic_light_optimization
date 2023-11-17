@@ -73,3 +73,10 @@ def plot_learning_curve(scores, epsilons, filename, path ="", mean_over = 10):
     plt.title("Fumo Reward")
 
     plt.savefig(filename)
+    
+def plot_learning_curves(scores, epsilons, filename,  path = "", mean_over = 10):
+    
+    n = len(scores)
+    # Create a figure and a 2D array of subplots
+    fig, axes = plt.subplots(nrows=1, ncols=n, figsize=(15, 4)) 
+    pass
