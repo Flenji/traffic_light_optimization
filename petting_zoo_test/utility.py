@@ -117,4 +117,16 @@ def plot_learning_curves(scores, epsilons, nrows, ncols,  filename, figsize=(15,
         if row_idx == nrows-1:
             ax.set_xlabel("Learning Steps")
             
-        plt.savefig(filename)
+        if i == len(running_avg)-1 and col_idx != ncols-1:
+           ax2.axis("on")
+           ax2.set_ylabel("epsilon")
+           ax2.yaxis.label.set_color(eps_color)
+           ax2.tick_params(axis='y', colors=eps_color) 
+           
+           axes[row_idx,-1].axis("off")
+        
+    filename = os.path.join(path,filename)
+    plt.savefig(filename+".png")
+    
+def createPath(*args):
+    return os.path.join(*args)

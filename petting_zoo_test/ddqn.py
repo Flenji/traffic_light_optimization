@@ -96,11 +96,11 @@ class DDQN(nn.Module):
         return x
     
     def save(self):
-        print("---   saving model   ---")
+        #print(f"---   saving model: {self.name}   ---")
         T.save(self.state_dict(),self.checkpoint_file)
         
     def load(self):
-        print("---   loading model   ---")
+        #print(f"---   loading model {self.name}   ---")
         self.load_state_dict(T.load(self.checkpoint_file))
         
 class Agent():
@@ -159,6 +159,7 @@ class Agent():
         return states, actions, rewards, states_, dones
     
     def save_model(self):
+        print(f"---   saving model: {self.name}   ---")
         self.online_q.save()
         self.target_q.save()
        
@@ -169,6 +170,7 @@ class Agent():
         
         
     def load_model(self):
+        print(f"---   loading model: {self.name}   ---")
         self.online_q.load()
         self.target_q.load()
         
