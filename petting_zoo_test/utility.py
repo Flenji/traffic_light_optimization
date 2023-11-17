@@ -38,16 +38,6 @@ def plot_learning_curve(scores, epsilons, filename, path ="", mean_over = 10):
 
     x = np.arange(N) * mean_over
     
-    """R = len(scores)%mean_over
-    N = len(scores) - (R+mean_over)
-    x = np.arange(N)
-    
-    
-    running_avg = np.empty(N)
-    eps_avg = np.empty(N)
-    for t in range(N):
-        running_avg[t] = np.mean(scores[t:t+mean_over])
-        eps_avg[t] = np.mean(epsilons[t:t+mean_over])"""
     
     fig, ax1 = plt.subplots()
 
@@ -76,7 +66,64 @@ def plot_learning_curve(scores, epsilons, filename, path ="", mean_over = 10):
     
 def plot_learning_curves(scores, epsilons, filename,  path = "", mean_over = 10):
     
-    n = len(scores)
+    n_agents = len(scores)
+    
+    N = int(len(epsilons)/mean_over)
+    
+    running_avg = dict.fromkeys(scores.keys())
+    
+    for agent in scores:
+        
+        running_avg[agent] = np.empty(N)
+        for t in range(N):
+            running_avg[agent][t] = np.mean(scores[agent][t*mean_over:t*mean_over+mean_over])
+    
+    eps_avg = np.empty(N)
+    for t in range(N):
+        eps_avg[t] = np.mean(epsilons[t*mean_over:t*mean_over+mean_over])
+        
+    x = np.arange(N) * mean_over
+    
+    
+    nrows = 2 
+    ncols = 2
     # Create a figure and a 2D array of subplots
-    fig, axes = plt.subplots(nrows=1, ncols=n, figsize=(15, 4)) 
-    pass
+    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(15, 8), sharey=True, sharex= True) 
+    
+    
+    eps_color = "#991203"
+    axes2 = []
+    for i, agent in enumerate(running_avg.keys()):
+        
+        row_idx = i // nrows
+        col_idx = i % ncols
+        
+        ax = axes[row_idx, col_idx]
+        ax.plot(x, running_avg[agent])
+        ax.title.set_text(f"Agent {agent}")
+        
+        
+        axes2.append(ax.twinx())
+        ax2 = axes2[i]
+        
+        ax2.plot(x, eps_avg, color = eps_color, alpha = 0.8)
+        ax2.axis("off")
+        
+        if col_idx == ncols-1:
+            ax2.axis("on")
+            ax2.set_ylabel("epsilon")
+            ax2.yaxis.label.set_color(eps_color)
+            ax2.tick_params(axis='y', colors=eps_color)
+        else:
+            ax.set_ylabel("Average Reward")
+            
+        if row_idx == nrows-1:
+            ax.set_xlabel("Learning Steps")
+    
+import utility
+
+
+
+
+    
+    
