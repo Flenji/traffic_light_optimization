@@ -130,3 +130,14 @@ def plot_learning_curves(scores, epsilons, nrows, ncols,  filename, figsize=(15,
     
 def createPath(*args):
     return os.path.join(*args)
+
+
+def get_time_formatted(seconds):
+    seconds = int(seconds)
+    hours = seconds // (60*60)
+    seconds %= (60*60)
+    minutes = seconds // 60
+    seconds %= 60
+    formatted = "{:02}:{:02}:{:02}".format(hours, minutes, seconds)
+    return formatted
+    

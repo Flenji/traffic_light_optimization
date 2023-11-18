@@ -13,11 +13,13 @@ import ddqn
 import utility
 import os
 import custom_observation 
+import time
 
+start_time = time.time()
 
 env = sumo_rl.parallel_env(net_file='fumos/IV/IV.net.xml',
                   route_file='fumos/IV/IV.rou.xml',
-                  use_gui=True,
+                  use_gui=False,
                   num_seconds=3600,
                   observation_class = custom_observation.CustomObservationFunction,
                   reward_fn = "average-speed",
@@ -54,8 +56,8 @@ for agent in agents.keys():
 print(f"Agents in this simulation: {[a for a in agents.keys()]}")
 
 learning_steps = 0
-
-for n in range(500):
+n = 0
+while(learning_steps <= 220000):#for n in range(700):
     observations = env.reset()[0]
     print(f"Generation: {n}")
     while env.agents:
@@ -81,15 +83,19 @@ for n in range(500):
         
         learning_steps += 1
         
-    if n % 100 == 0:
+    if n % 10 == 0:
         for k,v in agents.items():
             v.save_model()
         utility.save_object(scores, "scores_4", "results")
         utility.save_object(epsilons, "epsilons_4", "results")
         print(f"current epsilon: {epsilons[-1]}")
         print(f"learning steps taken: {learning_steps}")
-        
-        
+    n += 1
+                
 env.close()
 
-utility.plot_learning_curves(scores, epsilons, 2, 2, filename = "test", path="results")
+end_time = time.time()
+
+print(f"Runtime {utility.get_time_formatted(end_time-start_time)}")
+
+utility.plot_learning_curves(scores, epsilons, 2, 2, filename = "test", path="results", mean_over=200)
