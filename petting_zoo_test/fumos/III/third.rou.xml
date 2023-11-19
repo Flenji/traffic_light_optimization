@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-11-12 20:52:44 by Eclipse SUMO netedit Version 1.18.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Routes -->
+    <route id="r_0" edges="E0D0 D0C0 C0C1 C1C2 C2C3 C3C4 C4B4 B4A4"/>
+    <route id="r_1" edges="E0D0 D0C0 C0C1 C1C2 C2C3 C3C4 C4D4 D4E4"/>
+    <route id="r_10" edges="E0D0 D0C0 C0C1 C1C2 C2D2 D2E2 E2E3"/>
+    <route id="r_11" edges="E0D0 D0C0 C0C1 C1C2 C2D2 D2D3 D3E3 E3E4"/>
+    <route id="r_12" edges="E0D0 D0C0 C0C1 C1C2 C2D2 D2D3 D3D4 D4E4"/>
+    <route id="r_13" edges="E0D0 D0C0 C0C1 C1C2 C2D2 D2D1"/>
+    <route id="r_14" edges="E0D0 D0C0 C0C1 C1C2 C2B2 B2A2 A2A1"/>
+
+<!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="f_0" begin="0.00" route="r_0" end="3600.00" vehsPerHour="1000.00"/>
+    <flow id="f_1" begin="0.00" route="r_1" end="3600.00" vehsPerHour="500.00"/>
+    <flow id="f_2" begin="0.00" route="r_2" end="3600.00" vehsPerHour="500.00"/>	
+</routes>

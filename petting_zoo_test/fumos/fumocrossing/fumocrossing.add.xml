@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-10-26 18:13:30 by Eclipse SUMO netedit Version 1.18.0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <entryExitDetector id="hord" pos="14.70,28.09" period="300.00" file="hord.xml">
+        <detEntry lane="E0_1" pos="42.31"/>
+        <detEntry lane="E0_2" pos="42.17"/>
+        <detEntry lane="E0_3" pos="42.02"/>
+        <detEntry lane="E0_0" pos="42.37"/>
+        <detExit lane="E0_0" pos="56.80"/>
+        <detExit lane="E0_1" pos="56.80"/>
+        <detExit lane="E0_2" pos="56.80"/>
+        <detExit lane="E0_3" pos="56.80"/>
+    </entryExitDetector>
+    <entryExitDetector id="verd" pos="50.51,63.76" period="300.00" file="verd.xml">
+        <detExit lane="E2_0" pos="47.13"/>
+        <detExit lane="E2_1" pos="47.13"/>
+        <detExit lane="E2_2" pos="47.13"/>
+        <detExit lane="E2_3" pos="47.13"/>
+        <detEntry lane="E2_0" pos="32.38"/>
+        <detEntry lane="E2_1" pos="32.27"/>
+        <detEntry lane="E2_2" pos="32.42"/>
+        <detEntry lane="E2_3" pos="32.37"/>
+    </entryExitDetector>
+    <!-- Shapes -->
+    <poi id="poi_0" color="white" layer="202.00" x="13.35" y="56.57" imgFile="..\fumocrossing/f1.png" width="15.00" height="15.00"/>
+    <poi id="poi_2" color="white" layer="202.00" x="51.75" y="27.57" imgFile="..\fumocrossing/f2.png" width="15.00" height="15.00"/>
+</additional>
