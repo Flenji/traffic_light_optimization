@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-17 10:36:02 by Eclipse SUMO netedit Version 1.18.0
+<!-- generated on 2023-11-22 15:40:48 by Eclipse SUMO netedit Version 1.18.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumocfg-file value="C:\Users\hecto\Desktop\AAU Project\simple1.sumocfg"/>
-        <route-files value="C:\Users\hecto\Desktop\AAU Project\simple1.rou.xml"/>
-        <sumo-net-file value="C:\Users\hecto\Desktop\AAU Project\basicnet_2lane.net.xml"/>
+        <sumocfg-file value="C:\Users\hecto\Desktop\AAU Project\basic_2lane.sumocfg"/>
+        <additional-files value=""/>
+        <route-files value="C:\Users\hecto\Desktop\AAU Project\basic_2lane.rou.xml"/>
+        <sumo-net-file value="C:\Users\hecto\Desktop\AAU Project\basic_2lane.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\hecto\Desktop\AAU Project\basicnet_2lane.net.xml"/>
+        <output-file value="C:\Users\hecto\Desktop\AAU Project\basic_2lane.net.xml"/>
     </output>
 
     <processing>
