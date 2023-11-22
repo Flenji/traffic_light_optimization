@@ -21,8 +21,8 @@ import observation_spaces
 
 ### ENVIRONMENT
 
-env = sumo_rl.parallel_env(net_file='basic_2lane.net.xml',
-                  route_file='basic_2lane.rou.xml',
+env = sumo_rl.parallel_env(net_file='Networks/basic_2lane.net.xml',
+                  route_file='Networks/basic_2lane.rou.xml',
                   render_mode="human",
                   reward_fn=reward_fncs._combined_reward1,
                   observation_class=observation_spaces.ObservationFunction1,
