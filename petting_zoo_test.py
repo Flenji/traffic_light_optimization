@@ -21,60 +21,55 @@ import observation_spaces
 
 ### ENVIRONMENT
 
-env = sumo_rl.parallel_env(net_file='Networks/basic_2lane.net.xml',
-                  route_file='Networks/basic_2lane.rou.xml',
-                  render_mode="human",
+env = sumo_rl.parallel_env(net_file='Networks/simple1.net.xml',
+                  route_file='Networks/simple1.rou.xml',
+                  #reward_fn="average-speed",
                   reward_fn=reward_fncs._combined_reward1,
                   observation_class=observation_spaces.ObservationFunction1,
-                  use_gui=True,
+                  use_gui=False,
                   num_seconds=1500)
 # environment = AECEnv(env)
 # environment.render_mode = "human"   
-# env.env_params.additional_params.render_mode = "human"
+#env.env_params.additional_params.render_mode = "human"
 
+scores = [] #utility.load_object("scores") #keeping track of scores and epsilons for vizualization
+epsilons = [] #utility.load_object("epsilons")
 
-scores = []
-epsilons = []
-
-ddqn_agent = ddqn.Agent(learning_rate = 0.00025, input_dim = (6,), n_actions = 2, \
-                        mem_size = 3000000, eps_dec = 1e-6, batch_size = 36, name = "ddqn", \
+ddqn_agent = ddqn.Agent(learning_rate = 0.00025, input_dim = (9,), n_actions = 4, \
+                        mem_size = 30000, eps_dec = 1e-6, batch_size = 36, name = "ddqn", \
                             checkpoint_dir = "model_checkpoint")
 
-for n in range(10):    
+#ddqn_agent.load_model() #loading a trained model
+
+for n in range(100):    
     observations = env.reset()[0]
     print(f"Generation: {n}")
     while env.agents:
         actions = {agent: ddqn_agent.get_action(observations[agent]) for agent in env.agents}  # this is where you would insert your policy
         
         
-        
-        #actions = {ddqn_agent.get_action(obs)}
-        #obs_, rewards, terminations, truncations, infos = 
-        
         observations_, rewards, terminations, truncations, infos = env.step(actions)
         
         for agent in env.agents:
-            obs = observations[agent]
-            action = actions[agent]
+            obs = observations[agent] #current observation of agent
+            action = actions[agent] 
             obs_, reward, termination, truncation, info = observations_[agent],\
                 rewards[agent], terminations[agent], truncations[agent], infos[agent]
                 
-            done = termination or truncation
+            done = termination or truncation #TODO: see if this is needed for SUMO
             
             
             ddqn_agent.learn(obs, action, reward, obs_, done)
             
-        observations = observations_
+        observations = observations_ #setting new observation as current observation
         scores.extend(rewards.values())
         epsilons.append(ddqn_agent.epsilon)
     
     if n % 10 == 0:
-        ddqn_agent.save_model()
-        utility.save_object(scores, "scores")
-        utility.save_object(epsilons, "epsilons")
+        #ddqn_agent.save_model()
+        #utility.save_object(scores, "scores")
+        #utility.save_object(epsilons, "epsilons")
         print(f"current epsilon: {ddqn_agent.epsilon}")
 
-
-utility.plot_learning_curve(scores, epsilons, filename = "test", path="plotting")
-
-
+env.close()
+utility.plot_learning_curve(scores, epsilons, filename = "iteration_3", path="plotting", mean_over=100)
