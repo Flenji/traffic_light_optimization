@@ -17,11 +17,15 @@ import time
 
 start_time = time.time()
 
+net_file = 'fumos/IV/IV.net.xml'
+custom_observation.ComplexObservationFunction.net_file = net_file
+custom_observation.ComplexObservationFunction.radius = 1
+
 env = sumo_rl.parallel_env(net_file='fumos/IV/IV.net.xml',
                   route_file='fumos/IV/IV.rou.xml',
                   use_gui=False,
                   num_seconds=3600,
-                  observation_class = custom_observation.CustomObservationFunction,
+                  observation_class = custom_observation.ComplexObservationFunction,
                   reward_fn = "average-speed",
                   )
 
@@ -34,7 +38,7 @@ batch_size = 36
 gamma = 0.99
 eps_min = 0.1
 replace = 1000
-checkpoint_dir = utility.createPath("model_checkpoint", "fourth_iteration")
+checkpoint_dir = utility.createPath("model_checkpoint", "fifth_iteration")
 
 ### Setting the DDQN Agent for every possible agent
 agents = dict.fromkeys(env.possible_agents)
@@ -86,8 +90,8 @@ while(learning_steps <= 220000):#for n in range(700):
     if n % 10 == 0:
         for k,v in agents.items():
             v.save_model()
-        utility.save_object(scores, "scores_4", "results")
-        utility.save_object(epsilons, "epsilons_4", "results")
+        utility.save_object(scores, "scores_5", "results")
+        utility.save_object(epsilons, "epsilons_5", "results")
         print(f"current epsilon: {epsilons[-1]}")
         print(f"learning steps taken: {learning_steps}")
     n += 1
@@ -98,4 +102,4 @@ end_time = time.time()
 
 print(f"Runtime {utility.get_time_formatted(end_time-start_time)}")
 
-utility.plot_learning_curves(scores, epsilons, 2, 2, filename = "test", path="results", mean_over=200)
+utility.plot_learning_curves(scores, epsilons, 2, 2, filename = "test_5", path="results", mean_over=200)
