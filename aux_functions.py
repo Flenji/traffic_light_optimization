@@ -29,5 +29,17 @@ def get_incoming_edges_density(traffic_signal) -> List[float]:
 def get_edges_queue(traffic_signal) -> List[int]:
     """Returns the number of queued vehicles of the vehicles in the incoming edges of the intersection.
     """
-    edges_queued = [traffic_signal.sumo.edge.getLastStepHaltingNumber(edgeID) for edgeID in traffic_signal.incoming_edges]
-    return edges_queued
+    return [traffic_signal.sumo.edge.getLastStepHaltingNumber(edgeID) for edgeID in traffic_signal.incoming_edges]
+
+
+def get_edges_avg_speed(traffic_signal) -> List[float]:
+    """Returns the average speed in the last step in the incoming edges of the intersection.
+    """
+    return [traffic_signal.sumo.edge.getLastStepMeanSpeed(edgeID) for edgeID in traffic_signal.incoming_edges]
+
+
+def get_incoming_num_lanes_per_edge(traffic_signal) -> List[int]:
+    """Returns the number of lanes of each of the incoming edges of the intersection.
+    """
+    return [traffic_signal.sumo.edge.getLaneNumber(edgeID) for edgeID in traffic_signal.incoming_edges]
+

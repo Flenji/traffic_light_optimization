@@ -25,8 +25,8 @@ env = sumo_rl.parallel_env(net_file='Networks/simple1.net.xml',
                   route_file='Networks/simple1.rou.xml',
                   reward_fn=reward_fncs._combined_reward1,
                   observation_class=observation_spaces.ObservationFunction2,
-                  use_gui=True,
-                  num_seconds=1500)
+                  use_gui=False,
+                  num_seconds=2000)
 # environment = AECEnv(env)
 # environment.render_mode = "human"   
 #env.env_params.additional_params.render_mode = "human"
@@ -38,9 +38,7 @@ ddqn_agent = ddqn.Agent(learning_rate = 0.0025, input_dim = (13,), n_actions = 4
                         mem_size = 3000000, eps_dec = 1e-5, batch_size = 36, name = "ddqn", \
                             checkpoint_dir = "model_checkpoint")
 
-ddqn_agent.load_model() #loading a trained model
-
-for n in range(1):    
+for n in range(250):    
     observations = env.reset()[0]
     print(f"Generation: {n}")
     while env.agents:
@@ -57,12 +55,18 @@ for n in range(1):
                 
             done = termination or truncation #TODO: see if this is needed for SUMO
             
+            
             ddqn_agent.learn(obs, action, reward, obs_, done)
             
         observations = observations_ #setting new observation as current observation
         scores.extend(rewards.values())
         epsilons.append(ddqn_agent.epsilon)
-
+    
+    if n % 10 == 0:
+        ddqn_agent.save_model()
+        utility.save_object(scores, "scores")
+        utility.save_object(epsilons, "epsilons")
         print(f"current epsilon: {ddqn_agent.epsilon}")
 
 env.close()
+utility.plot_learning_curve(scores, epsilons, filename = "iteration_3", path="plotting", mean_over=100)
