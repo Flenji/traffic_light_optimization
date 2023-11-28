@@ -50,19 +50,27 @@ class ComplexObservationFunction(ObservationFunction):
         lanes = list(
             dict.fromkeys(self.sumo.trafficlight.getControlledLanes(ts.id))
         )
-        
         self.net = net.readNet(ComplexObservationFunction.net_file)
+        
         radius = ComplexObservationFunction.radius
         self.controlled_lanes = self.getControlledLanesRadius(lanes,radius)
+        self.outgoing_lanes = self.getOutgoingLanesRadius(lanes,radius)
+        
+        #self.controlled_lanes = list(dict.fromkeys(self.controlled_lanes+self.outgoing_lanes))
+        
         self.connected_traffic_lights = self.connectedTrafficLights()
+        
         self.tl_green_phases = self.getConnectedTrafficLightPhases()
         
         self.count = 0
         
+        self.lanes_lenght = {lane: self.sumo.lane.getLength(lane) for lane in self.controlled_lanes+self.outgoing_lanes}
         
-        self.lanes_lenght = {lane: self.sumo.lane.getLength(lane) for lane in self.controlled_lanes}
+        self.controlled_lanes = list(dict.fromkeys(self.controlled_lanes + self.outgoing_lanes))
+        
         ComplexObservationFunction.ts = self.ts
         ComplexObservationFunction.compObject = self
+        
         
                 
     def getControlledLanesRadius(self,controlled_lanes,radius):
@@ -76,6 +84,30 @@ class ComplexObservationFunction(ObservationFunction):
             
         controlled_lanes = list({l for sublist in con_lanes_list for l in sublist}) #to remove duplicates
             
+        return controlled_lanes
+    
+    def getOutgoingLanesRadius(self,lanes, radius):
+        out_going = []
+        for lane in lanes:
+            lane_object = self.net.getLane(lane)
+            outgoingLanesObj = lane_object.getOutgoingLanes()
+            
+            outgoingLanes = [outgoing.getID() for outgoing in outgoingLanesObj]
+            
+            out_going.extend(outgoingLanes)
+
+        out_going = list(dict.fromkeys(out_going))
+        
+        con_lanes_list = [out_going] 
+        for i in range(radius):
+            next_lanes = [] 
+            for lane in con_lanes_list[-1]: #for lane in the list of last calculated lanes
+                lane_object = self.net.getLane(lane)
+                next_lanes.extend( [l.getID() for l in lane_object.getOutgoingLanes()])
+            con_lanes_list.append(next_lanes)
+            
+        controlled_lanes = list({l for sublist in con_lanes_list for l in sublist})
+        
         return controlled_lanes
     
     def connectedTrafficLights(self):
@@ -129,7 +161,7 @@ class ComplexObservationFunction(ObservationFunction):
         return phase_IDs
     
     
-    def get_lanes_density(self):
+    def get_lanes_density(self,lanes):
         """Returns the density [0,1] of the vehicles in the incoming lanes of the intersection.
 
         Obs: The density is computed as the number of vehicles divided by the number of vehicles that could fit in the lane.
@@ -137,7 +169,7 @@ class ComplexObservationFunction(ObservationFunction):
         lanes_density = [
             self.sumo.lane.getLastStepVehicleNumber(lane)
             / (self.lanes_lenght[lane] / (self.ts.MIN_GAP + self.sumo.lane.getLastStepLength(lane)))
-            for lane in self.controlled_lanes
+            for lane in lanes
         ]
         return [min(1, density) for density in lanes_density]
         
@@ -157,7 +189,8 @@ class ComplexObservationFunction(ObservationFunction):
         """Return the observation."""
         
         #self.setTsLanes()
-        density = self.get_lanes_density()
+        density = self.get_lanes_density(self.controlled_lanes)
+        #density_outgoing = self.get_lanes_density(self.outgoing_lanes)
         phaseIDs = self.getPhaseIDs()
         observation = np.array(phaseIDs+density, dtype=np.float32)
         return observation

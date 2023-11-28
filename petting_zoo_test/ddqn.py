@@ -142,6 +142,14 @@ class Agent():
             action = T.argmax(self.online_q.forward(state)).item()
         return action
     
+    def get_test_action(self,state):
+        """
+        This function returns always the best calculated action. No exploring.
+        """
+        state = T.tensor(state, dtype=T.float).to(self.online_q.device)
+        action = T.argmax(self.online_q.forward(state)).item()
+        return action
+    
     def store_transition(self,s,a,r,s_,d):
         self.memory.store_transition(s, a, r, s_, d)
     
@@ -217,10 +225,7 @@ class Agent():
         eval_actions = q_eval.argmax(dim=1)
         
         q_next[dones] = 0.0
-        
-        test = q_next[indices, eval_actions]
-        
-        
+                  
         q_target = rewards + self.gamma * q_next[indices,eval_actions]
         
         loss = self.online_q.loss(q_pred,q_target).to(self.online_q.device)
