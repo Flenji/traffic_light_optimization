@@ -92,7 +92,7 @@ def _penalize_phase_change(traffic_signal):
     """
     if hasattr(traffic_signal, 'last_phase_id') and traffic_signal.last_phase_id != traffic_signal.sumo.trafficlight.getPhase(traffic_signal.id):
         traffic_signal.last_phase_id = traffic_signal.sumo.trafficlight.getPhase(traffic_signal.id)
-        return 1
+        return -1
     traffic_signal.last_phase_id = traffic_signal.sumo.trafficlight.getPhase(traffic_signal.id)
     return 0
     
@@ -115,5 +115,5 @@ def _combined_reward2(traffic_signal):
 def _combined_reward3(traffic_signal):
     """Third reward function defined combining several factors.
     """
-    return 0.4 * _incoming_edge_congestion_reward(traffic_signal) + 0.2 * _long_waits_penalize(traffic_signal) \
-    + 0.1 * _avg_speed_reward(traffic_signal) + 0.3 * _crossing_cars_reward(traffic_signal)
+    return 0.45 * _incoming_edge_congestion_reward(traffic_signal) + 0.1 * _long_waits_penalize(traffic_signal) \
+    + 0.1 * _avg_speed_reward(traffic_signal) + 0.3 * _crossing_cars_reward(traffic_signal) + 0.05 * _penalize_phase_change(traffic_signal)
