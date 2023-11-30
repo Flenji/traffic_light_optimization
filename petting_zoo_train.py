@@ -21,9 +21,9 @@ import observation_spaces
 
 ### ENVIRONMENT
 
-env = sumo_rl.parallel_env(net_file='Networks/simple1.net.xml',
-                  route_file='Networks/simple1.rou.xml',
-                  reward_fn=reward_fncs._combined_reward1,
+env = sumo_rl.parallel_env(net_file='Networks/second.net.xml',
+                  route_file='Networks/second.rou.xml',
+                  reward_fn=reward_fncs._combined_reward2,
                   observation_class=observation_spaces.ObservationFunction2,
                   use_gui=False,
                   num_seconds=2000)
@@ -38,7 +38,7 @@ ddqn_agent = ddqn.Agent(learning_rate = 0.0025, input_dim = (13,), n_actions = 4
                         mem_size = 3000000, eps_dec = 1e-5, batch_size = 36, name = "ddqn", \
                             checkpoint_dir = "model_checkpoint")
 
-for n in range(250):    
+for n in range(300):    
     observations = env.reset()[0]
     print(f"Generation: {n}")
     while env.agents:

@@ -11,8 +11,8 @@ from sumo_rl.environment.traffic_signal import TrafficSignal
 import aux_functions
 
 class ObservationFunction1(ObservationFunction):
-    """The agent receives the congestion of each of the 4 edges aproaching the intersection.
-       DIM: 9 (if there are 4 green phases)"""
+    """The agent receives the congestion of each of the edges aproaching the intersection.
+       DIM: 9 (if there are 4 green phases)  (for 4 incoming edges)"""
 
     def __init__(self, ts: TrafficSignal):
         """Initialize default observation function."""
@@ -36,9 +36,9 @@ class ObservationFunction1(ObservationFunction):
     
 
 class ObservationFunction2(ObservationFunction):
-    """The agent receives the congestion of each of the 4 edges aproaching the intersection.
-       It also receives the number of queued vehicles of each of the 4 edges aproaching the intersection. 
-       DIM: 13
+    """The agent receives the congestion of each of the edges aproaching the intersection.
+       It also receives the number of queued vehicles of each of the edges aproaching the intersection. 
+       DIM: 13 (for 4 incoming edges)
        
        OBS: By not getting the queue in a percentage, and combining with the density in the observation space, the agent will get a notion
             of the measures of the edges without having to increase the obseravtion space with the number of lanes per edge and their length.
@@ -70,12 +70,12 @@ class ObservationFunction2(ObservationFunction):
         )
     
 class ObservationFunction3(ObservationFunction):
-    """The agent receives the congestion of each of the 4 edges aproaching the intersection.
-       It also receives the number of queued vehicles of each of the 4 edges aproaching the intersection.
-       In addition, the number of lanes of each of the 4 edges aproaching the intersection is given.
-       DIM: 17
+    """The agent receives the congestion of each of the edges aproaching the intersection.
+       It also receives the number of queued vehicles of each of the edges aproaching the intersection.
+       In addition, the number of lanes of each of the edges aproaching the intersection is given.
+       DIM: 17 (for 4 incoming edges)
        
-       OBS: By addin the number of lanes of each edge we give the agent the ability to perceive how the network is. Therefore, it can know if there are
+       OBS: By adding the number of lanes of each edge we give the agent the ability to perceive how the network is. Therefore, it can know if there are
        more important edges and is able to have a sense of how many cars are there in each edge with the help of the other inputs.
     """
 

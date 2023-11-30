@@ -38,6 +38,29 @@ def get_edges_avg_speed(traffic_signal) -> List[float]:
     return [traffic_signal.sumo.edge.getLastStepMeanSpeed(edgeID) for edgeID in traffic_signal.incoming_edges]
 
 
+def get_incoming_vehicle_ids(traffic_signal) -> List[List[str]]:
+    """Returns the ids of all the vehicles in the incoming edges of the intersection.
+    """
+    ids = []
+    for edgeID in traffic_signal.incoming_edges:
+        ids.append(sorted(traffic_signal.sumo.edge.getLastStepVehicleIDs(edgeID)))
+    return ids
+
+
+def get_crossing_vehicles(last_ids, new_ids) -> float:
+    """Returns the number of vehicles from an incoming edge that have crossed the intersection, 
+    computed as the number of vehicles whose id was in the incoming edge but no longer is.
+    """
+    crossing = 0
+    i = 0
+    j = 0
+    while i < len(last_ids) and j < len(new_ids):
+        if last_ids[i] < new_ids[j]: crossing += 1; i += 1
+        elif last_ids[i] > new_ids[j]: j += 1
+        else: i += 1; j += 1
+    return crossing
+
+
 def get_incoming_num_lanes_per_edge(traffic_signal) -> List[int]:
     """Returns the number of lanes of each of the incoming edges of the intersection.
     """
