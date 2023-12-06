@@ -85,7 +85,7 @@ def plot_learning_curves(scores, epsilons, nrows, ncols,  filename, figsize=(15,
     x = np.arange(N) * mean_over
     
     # Create a figure and a 2D array of subplots
-    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=figsize, sharey=True, sharex= True) 
+    fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize, sharey=True, sharex= True) 
     
     
     eps_color = "#991203"
@@ -111,7 +111,7 @@ def plot_learning_curves(scores, epsilons, nrows, ncols,  filename, figsize=(15,
             ax2.set_ylabel("epsilon")
             ax2.yaxis.label.set_color(eps_color)
             ax2.tick_params(axis='y', colors=eps_color)
-        else:
+        elif col_idx == 0:
             ax.set_ylabel("Average Reward")
             
         if row_idx == nrows-1:

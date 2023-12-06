@@ -2,7 +2,11 @@
 """
 Created on Fri Nov  3 14:25:12 2023
 
-@author: hanne
+To learn how to implement Deep-Q-Learning in Python, an online course 
+"deep-q-learning-from-paper-to-code" by Phil Tabor was followed.
+
+The code follows the structure of his implementtion which can be found on 
+GitHub:  https://github.com/philtabor/Deep-Q-Learning-Paper-To-Code
 """
 
 import random
@@ -135,6 +139,10 @@ class Agent():
         self.memory = Memory(mem_size,input_dim)
     
     def get_action(self, state):
+        """
+        Depending on the epsilon value, this function returns either a random action
+        or the best learned one for the given observation.
+        """
         if np.random.random() < self.epsilon: #select random action with regards to epsilon
             action = np.random.choice(self.actions)
         else:
@@ -206,7 +214,7 @@ class Agent():
             return
         
         
-        self.online_q.optimizer.zero_grad()
+        self.online_q.optimizer.zero_grad() #reset the gradients to zero to avoid wrong gradient calculation
         
         self.update_target_network()
         
@@ -222,7 +230,7 @@ class Agent():
         q_eval = self.online_q.forward(states_)[indices]
         
         
-        eval_actions = q_eval.argmax(dim=1)
+        eval_actions = q_eval.argmax(dim=1) #chooses best action according to the onlone network
         
         q_next[dones] = 0.0
                   
