@@ -23,7 +23,7 @@ import observation_spaces
 
 env = sumo_rl.parallel_env(net_file='Networks/second.net.xml',
                   route_file='Networks/second.rou.xml',
-                  reward_fn=reward_fncs._combined_reward2,
+                  reward_fn=reward_fncs._combined_reward3,
                   observation_class=observation_spaces.ObservationFunction2,
                   use_gui=False,
                   num_seconds=2000)
