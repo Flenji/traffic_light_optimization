@@ -15,7 +15,7 @@ def _incoming_edge_congestion_reward(traffic_signal, edges):
     """
     congestions = aux_functions.get_incoming_edges_density(traffic_signal, edges)
 
-    return -sum(congestion**2 for congestion in congestions)
+    return -sum(congestion**2 for congestion in congestions)/len(edges)
         
 
 def _long_waits_penalize(traffic_signal, edges):
@@ -59,7 +59,7 @@ def _avg_speed_reward(traffic_signal, edges, lanes):
     return sum_averages/len(edges)
 
 
-def _crossing_cars_reward(traffic_signal):
+def _crossing_cars_reward(traffic_signal, edges):
     """ Reward function that returns the
 
     I CAN TRY TO USE THE CONGESTION ON THE OUTGOING LANES AS AN INDICATOR OF THE VEHICLES CROSSING THE INTERSECTION
@@ -72,7 +72,7 @@ def _crossing_cars_reward(traffic_signal):
         crossing = 0
         total_cars = 0 
         last = traffic_signal.last_vehicle_id
-        new = aux_functions.get_incoming_vehicle_ids(traffic_signal, traffic_signal.incoming_edges)
+        new = aux_functions.get_incoming_vehicle_ids(traffic_signal, edges)
         for i in range(len(last)):
             last_ids = last[i]
             new_ids = new[i]
@@ -82,7 +82,7 @@ def _crossing_cars_reward(traffic_signal):
         traffic_signal.last_vehicle_id = new
         return crossing/total_cars
     else: 
-        traffic_signal.last_vehicle_id = aux_functions.get_incoming_vehicle_ids(traffic_signal, traffic_signal.incoming_edges)
+        traffic_signal.last_vehicle_id = aux_functions.get_incoming_vehicle_ids(traffic_signal, edges)
         return 0
 
 
@@ -145,7 +145,7 @@ def _combined_reward3(traffic_signal):
     return 0.3 * _incoming_edge_congestion_reward(traffic_signal, edges) \
         + 0.2 * _long_waits_penalize(traffic_signal, edges) \
         + 0.1 * _avg_speed_reward(traffic_signal, edges, traffic_signal.lanes) \
-        + 0.35 * _crossing_cars_reward(traffic_signal) + 0.05 * _penalize_phase_change(traffic_signal)
+        + 0.35 * _crossing_cars_reward(traffic_signal, edges) + 0.05 * _penalize_phase_change(traffic_signal)
 
 
 def _combined_reward4(traffic_signal):
@@ -156,7 +156,7 @@ def _combined_reward4(traffic_signal):
         + 0.25 * reward_green_to_congested(traffic_signal) \
         + 0.2 * _long_waits_penalize(traffic_signal, edges) \
         + 0.1 * _avg_speed_reward(traffic_signal, edges, traffic_signal.lanes) \
-        + 0.25 * _crossing_cars_reward(traffic_signal) + 0.05 * _penalize_phase_change(traffic_signal)
+        + 0.25 * _crossing_cars_reward(traffic_signal, edges) + 0.05 * _penalize_phase_change(traffic_signal)
 
 
 #### MULTI-AGENT REWARD FUNCTIONS
@@ -169,7 +169,7 @@ def multi_agent_reward3(traffic_signal):
     direct_reward = 0.3 * _incoming_edge_congestion_reward(traffic_signal, direct_edges) \
         + 0.2 * _long_waits_penalize(traffic_signal, direct_edges) \
         + 0.1 * _avg_speed_reward(traffic_signal, direct_edges, traffic_signal.direct_controlled_lanes) \
-        + 0.35 * _crossing_cars_reward(traffic_signal) + 0.05 * _penalize_phase_change(traffic_signal)
+        + 0.35 * _crossing_cars_reward(traffic_signal, direct_edges) + 0.05 * _penalize_phase_change(traffic_signal)
     indirect_reward = 0.4 * _incoming_edge_congestion_reward(traffic_signal, indirect_edges) \
         + 0.25 * _long_waits_penalize(traffic_signal, indirect_edges) \
         + 0.35 * _avg_speed_reward(traffic_signal, indirect_edges, traffic_signal.controlled_lanes) 
