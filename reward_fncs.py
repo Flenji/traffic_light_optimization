@@ -24,9 +24,7 @@ def _long_waits_penalize(traffic_signal, edges):
            
        In order to have the reward value between [0, 1] and be able to combine several rewards/penalizations without giving to much importance to one 
        due to the values range, we perform a kind of normalization. To do this, we assume that the maximum acceptable waiting time for a vehicle is
-       95 seconds. So, we devide the sum of the max waiting times by len(traffic_signal.incoming_edges)*95. 
-       (MAYBE IT IS NOT 4 BUT 2, AS TWO LANES ARE ALWAYS IN GREEN [BUT
-       SOME TURNING LEFT MIGHT BE WAITING SO MAYBE IT IS CORRECT])
+       95 seconds. So, we devide the max waiting times by 95.
     """ 
     max_waits = []
         
@@ -59,7 +57,7 @@ def _avg_speed_reward(traffic_signal, edges, lanes):
     return sum_averages/len(edges)
 
 
-def _crossing_cars_reward(traffic_signal, edges):
+def _crossing_cars_reward(traffic_signal, edges, direct):
     """ Reward function that returns the
 
     I CAN TRY TO USE THE CONGESTION ON THE OUTGOING LANES AS AN INDICATOR OF THE VEHICLES CROSSING THE INTERSECTION
@@ -68,21 +66,29 @@ def _crossing_cars_reward(traffic_signal, edges):
 
     OBS: The percentage of the total incoming vehicles that enter the intersection is used. The average of the percentage of the incoming edges could be used.
     """
-    if hasattr(traffic_signal, 'last_vehicle_id'):
+    if (hasattr(traffic_signal, 'last_direct_vehicle_id') and direct) or (hasattr(traffic_signal, 'last_global_vehicle_id') and not direct):
         crossing = 0
-        total_cars = 0 
-        last = traffic_signal.last_vehicle_id
+        total_cars = 0
+        if direct:
+            last = traffic_signal.last_direct_vehicle_id 
+        else: 
+            last = traffic_signal.last_global_vehicle_id
         new = aux_functions.get_incoming_vehicle_ids(traffic_signal, edges)
         for i in range(len(last)):
             last_ids = last[i]
             new_ids = new[i]
             total_cars += len(last_ids)
             crossing += aux_functions.get_crossing_vehicles(last_ids, new_ids)
-
-        traffic_signal.last_vehicle_id = new
-        return crossing/total_cars
-    else: 
-        traffic_signal.last_vehicle_id = aux_functions.get_incoming_vehicle_ids(traffic_signal, edges)
+        if direct:
+            traffic_signal.last_direct_vehicle_id = new
+        else: 
+            traffic_signal.last_global_vehicle_id = new
+        return crossing/total_cars if total_cars != 0 else 0
+    else:
+        if direct:
+            traffic_signal.last_direct_vehicle_id = aux_functions.get_incoming_vehicle_ids(traffic_signal, edges)
+        else: 
+            traffic_signal.last_global_vehicle_id = aux_functions.get_incoming_vehicle_ids(traffic_signal, edges)
         return 0
 
 
@@ -95,6 +101,7 @@ def _penalize_phase_change(traffic_signal):
         return -1
     traffic_signal.last_phase_id = traffic_signal.sumo.trafficlight.getPhase(traffic_signal.id)
     return 0
+    
     
 def reward_green_to_congested(traffic_signal):
     """ Reward function that rewards the agent for letting vehicles that come from a congested edge through the intersection.
@@ -145,7 +152,7 @@ def _combined_reward3(traffic_signal):
     return 0.3 * _incoming_edge_congestion_reward(traffic_signal, edges) \
         + 0.2 * _long_waits_penalize(traffic_signal, edges) \
         + 0.1 * _avg_speed_reward(traffic_signal, edges, traffic_signal.lanes) \
-        + 0.35 * _crossing_cars_reward(traffic_signal, edges) + 0.05 * _penalize_phase_change(traffic_signal)
+        + 0.35 * _crossing_cars_reward(traffic_signal, edges, True) + 0.05 * _penalize_phase_change(traffic_signal)
 
 
 def _combined_reward4(traffic_signal):
@@ -156,23 +163,42 @@ def _combined_reward4(traffic_signal):
         + 0.25 * reward_green_to_congested(traffic_signal) \
         + 0.2 * _long_waits_penalize(traffic_signal, edges) \
         + 0.1 * _avg_speed_reward(traffic_signal, edges, traffic_signal.lanes) \
-        + 0.25 * _crossing_cars_reward(traffic_signal, edges) + 0.05 * _penalize_phase_change(traffic_signal)
+        + 0.25 * _crossing_cars_reward(traffic_signal, edges, True) + 0.05 * _penalize_phase_change(traffic_signal)
 
 
 #### MULTI-AGENT REWARD FUNCTIONS
+
 def multi_agent_reward3(traffic_signal):
     """ First reward function for the multi-agent scenario, where traffic lights observe a wider observation space.
-    Based on results of the third single-agent reward function.
+    Based on the study of the third single-agent reward function.
     """
     direct_edges = traffic_signal.incoming_edges
-    indirect_edges = traffic_signal.controlled_edges
+    global_edges = traffic_signal.controlled_edges
     direct_reward = 0.3 * _incoming_edge_congestion_reward(traffic_signal, direct_edges) \
         + 0.2 * _long_waits_penalize(traffic_signal, direct_edges) \
         + 0.1 * _avg_speed_reward(traffic_signal, direct_edges, traffic_signal.direct_controlled_lanes) \
-        + 0.35 * _crossing_cars_reward(traffic_signal, direct_edges) + 0.05 * _penalize_phase_change(traffic_signal)
-    indirect_reward = 0.4 * _incoming_edge_congestion_reward(traffic_signal, indirect_edges) \
-        + 0.25 * _long_waits_penalize(traffic_signal, indirect_edges) \
-        + 0.35 * _avg_speed_reward(traffic_signal, indirect_edges, traffic_signal.controlled_lanes) 
-        # We could add the crossing cars in the adjacent traffic lights
+        + 0.35 * _crossing_cars_reward(traffic_signal, direct_edges, True) + 0.05 * _penalize_phase_change(traffic_signal)
+    global_reward = 0.4 * _incoming_edge_congestion_reward(traffic_signal, global_edges) \
+        + 0.25 * _long_waits_penalize(traffic_signal, global_edges) \
+        + 0.35 * _avg_speed_reward(traffic_signal, global_edges, traffic_signal.controlled_lanes) 
     
-    return 0.7 * direct_reward + 0.3 * indirect_reward
+    return 0.7 * direct_reward + 0.3 * global_reward
+
+def multi_agent_reward3_2(traffic_signal):
+    """ First reward function for the multi-agent scenario, where traffic lights observe a wider observation space.
+    Based on the study of the third single-agent reward function.
+
+    The crossing cars for the global observed lanes are rewarded too.
+    """
+    direct_edges = traffic_signal.incoming_edges
+    global_edges = traffic_signal.controlled_edges
+    direct_reward = 0.3 * _incoming_edge_congestion_reward(traffic_signal, direct_edges) \
+        + 0.2 * _long_waits_penalize(traffic_signal, direct_edges) \
+        + 0.1 * _avg_speed_reward(traffic_signal, direct_edges, traffic_signal.direct_controlled_lanes) \
+        + 0.35 * _crossing_cars_reward(traffic_signal, direct_edges, True) + 0.05 * _penalize_phase_change(traffic_signal)
+    global_reward = 0.3 * _incoming_edge_congestion_reward(traffic_signal, global_edges) \
+        + 0.2 * _long_waits_penalize(traffic_signal, global_edges) \
+        + 0.15 * _avg_speed_reward(traffic_signal, global_edges, traffic_signal.controlled_lanes)  \
+        + 0.35 * _crossing_cars_reward(traffic_signal, global_edges, False)
+    
+    return 0.7 * direct_reward + 0.3 * global_reward
