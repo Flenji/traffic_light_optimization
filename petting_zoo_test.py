@@ -23,19 +23,17 @@ import observation_spaces
 
 env = sumo_rl.parallel_env(net_file='Networks/second.net.xml',
                   route_file='Networks/second.rou.xml',
-                  reward_fn=reward_fncs._combined_reward3,
+                  reward_fn=reward_fncs._combined_reward4,
                   observation_class=observation_spaces.ObservationFunction2_lanes,
                   use_gui=True,
-                  num_seconds=3600)
-# environment = AECEnv(env)
-# environment.render_mode = "human"   
-#env.env_params.additional_params.render_mode = "human"
+                  num_seconds=10800)
+
 
 ddqn_agent = ddqn.Agent(learning_rate = 0.0001, input_dim = (21,), n_actions = 4, \
-                        mem_size = 3000000, eps_dec = 1e-6, batch_size = 36, name = "ddqn8", \
+                        mem_size = 3000000, eps_dec = 1e-6, batch_size = 36, name = "ddqn9", \
                             checkpoint_dir = "model_checkpoint", gamma=0.9)
 
-ddqn_agent.load_model("model8") #loading a trained model
+ddqn_agent.load_model("model9") #loading a trained model
 
 # Reset the environment to get the initial observations
 observations = env.reset()[0]
