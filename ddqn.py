@@ -76,8 +76,12 @@ class DDQN(nn.Module):
         
         #Network architecture
         self.layer1 = nn.Linear(*input_dim, 128)
-        self.layer2 = nn.Linear(128, 128)
-        self.layer3 = nn.Linear(128, n_actions)
+        self.dropout1 = nn.Dropout(p=0.5)
+        self.layer2 = nn.Linear(128, 256)
+        self.dropout2 = nn.Dropout(p=0.5)
+        self.layer3 = nn.Linear(256, 128)
+        self.dropout3 = nn.Dropout(p=0.5)
+        self.layer4 = nn.Linear(128, n_actions)
         
         self.optimizer = optim.Adam(self.parameters(), lr=learning_rate)
         
@@ -90,8 +94,12 @@ class DDQN(nn.Module):
         Calculates values of output nodes for given observation x
         """
         x = F.relu(self.layer1(x))
+        x = self.dropout1(x)
         x = F.relu(self.layer2(x))
-        x = self.layer3(x)
+        x = self.dropout2(x)
+        x = F.relu(self.layer3(x))
+        x = self.dropout3(x)
+        x = self.layer4(x)
         
         return x
     
@@ -158,22 +166,22 @@ class Agent():
         
         return states, actions, rewards, states_, dones
     
-    def save_model(self):
+    def save_model(self, filename):
         self.online_q.save()
         self.target_q.save()
        
         #  saving epsilon
-        checkpoint_epsilon = os.path.join(self.checkpoint_dir,"epsilon")
+        checkpoint_epsilon = os.path.join(self.checkpoint_dir,filename)
         with open (checkpoint_epsilon, "wb") as file:
             pickle.dump(self.epsilon, file)
         
         
-    def load_model(self):
+    def load_model(self, filename):
         self.online_q.load()
         self.target_q.load()
         
         #loading epsilon
-        checkpoint_epsilon = os.path.join(self.checkpoint_dir,"epsilon")
+        checkpoint_epsilon = os.path.join(self.checkpoint_dir,filename)
         with open(checkpoint_epsilon, 'rb') as file:
             self.epsilon = pickle.load(file)
         

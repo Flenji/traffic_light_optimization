@@ -49,7 +49,7 @@ def define_new_flows(route_file, number_routes, total_vehsPerHour, total_routePr
     root = tree.getroot()
 
     # Generate random values
-    vehsPerHour = round(float(random.randint(1500, 3000)), 2)
+    vehsPerHour = round(float(random.randint(1800, 3600)), 2)
     total_vehsPerHour += vehsPerHour
     route_probabilities = generate_random_partition(100, number_routes)
 
@@ -72,20 +72,20 @@ epsilons = [] #utility.load_object("epsilons")
 total_vehsPerHour = 0
 total_routeProbs = [0 for i in range(10)]
 
-ddqn_agent = ddqn.Agent(learning_rate = 0.0015, input_dim = (13,), n_actions = 4, \
-                        mem_size = 3000000, eps_dec = 1e-54, batch_size = 36, name = "ddqn", \
+ddqn_agent = ddqn.Agent(learning_rate = 0.0001, input_dim = (21,), n_actions = 4, \
+                        mem_size = 3000000, eps_dec = 1e-6, batch_size = 36, name = "ddqn9", \
                             checkpoint_dir = "model_checkpoint", gamma=0.9)
 
-for n in range(300):    
+for n in range(500):    
     
     total_vehsPerHour, total_routeProbs = define_new_flows('Networks/second_random.rou.xml', 10, total_vehsPerHour, total_routeProbs)
 
     env = sumo_rl.parallel_env(net_file='Networks/second.net.xml',
                   route_file='Networks/second_random.rou.xml',
-                  reward_fn=reward_fncs._combined_reward3,
-                  observation_class=observation_spaces.ObservationFunction2,
+                  reward_fn=reward_fncs._combined_reward4,
+                  observation_class=observation_spaces.ObservationFunction2_lanes,
                   use_gui=False,
-                  num_seconds=3000)
+                  num_seconds=10800)
     observations = env.reset()[0]
 
     print(f"Generation: {n}")
@@ -111,13 +111,11 @@ for n in range(300):
         epsilons.append(ddqn_agent.epsilon)
     
     if n % 10 == 0:
-        ddqn_agent.save_model()
-        utility.save_object(scores, "scores")
-        utility.save_object(epsilons, "epsilons")
+        ddqn_agent.save_model("model9")
+        utility.save_object(scores, "scores9")
+        utility.save_object(epsilons, "epsilons9")
         print(f"current epsilon: {ddqn_agent.epsilon}")
 
     env.close()
 
-print(total_vehsPerHour/300)   
-print(total_routeProbs/300)
-utility.plot_learning_curve(scores, epsilons, filename = "iteration_3", path="plotting", mean_over=100)
+utility.plot_learning_curve(scores, epsilons, filename = "model9", path="plotting", mean_over=1000)

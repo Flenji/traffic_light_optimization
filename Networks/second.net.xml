@@ -1406,7 +1406,7 @@
         <lane id="E4E3_1" index="1" speed="13.89" length="83.20" shape="398.40,393.60 398.40,310.40"/>
     </edge>
 
-    <tlLogic id="C2" type="static" programID="0" offset="0">
+    <tlLogic id="C2" type="actuated" programID="0" offset="0">
         <phase duration="33" state="GGgrrrGGgrrr"/>
         <phase duration="3"  state="yygrrryygrrr"/>
         <phase duration="6"  state="rrGrrrrrGrrr"/>
