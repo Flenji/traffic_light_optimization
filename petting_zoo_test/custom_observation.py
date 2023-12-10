@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Nov  7 15:44:36 2023
+In this module a simple custom observation space and a complex custom observation space
+is defined.
 
-@author: hanne
+Authors: AAU CS (IT) 07 - 03
 """
 
 from sumo_rl.environment.observations import ObservationFunction
@@ -84,11 +85,17 @@ class ComplexObservationFunction(ObservationFunction):
         self.ts.direct_controlled_edges = self.direct_controlled_edges
         self.ts.controlled_edges = self.controlled_edges
         
+        self.ts.direct_controlled_lanes = lanes
+        self.ts.controlled_lanes = self.controlled_lanes
+        
         ComplexObservationFunction.ts = self.ts
         ComplexObservationFunction.compObject = self
         
 
     def lanesToEdges(self,lanes):
+        """
+        Gets the corresponding edges to the lanes.
+        """
         edge_ids = []
 
         for lane in lanes:
@@ -100,6 +107,10 @@ class ComplexObservationFunction(ObservationFunction):
         return edge_ids
     
     def getEdgesLength(self, edges):
+        """
+        Gets the length of every edge in edges.
+        Returns a dictionary.
+        """
         edges_length = {}
         for edge in edges:
             edge_object = self.net.getEdge(edge)
