@@ -181,7 +181,7 @@ class Agent():
         self.target_q.save()
        
         #  saving epsilon
-        checkpoint_epsilon = os.path.join(self.checkpoint_dir,"epsilon")
+        checkpoint_epsilon = os.path.join(self.checkpoint_dir,self.name+"_epsilon")
         with open (checkpoint_epsilon, "wb") as file:
             pickle.dump(self.epsilon, file)
         
@@ -192,7 +192,7 @@ class Agent():
         self.target_q.load()
         
         #loading epsilon
-        checkpoint_epsilon = os.path.join(self.checkpoint_dir,"epsilon")
+        checkpoint_epsilon = os.path.join(self.checkpoint_dir,self.name+"_epsilon")
         with open(checkpoint_epsilon, 'rb') as file:
             self.epsilon = pickle.load(file)
         
