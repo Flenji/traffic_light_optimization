@@ -82,7 +82,7 @@ checkpoint_dir = utility.createPath("model_checkpoint", "sixth_iteration") # !!!
 SAVE = False
 LOAD = True
 
-agent_suffix = "_V_complex_Observation_simple_Reward" # !!!!!
+agent_suffix = "_reward3_randtraining" # !!!!!
 
 epsilons = []
 scores = []
@@ -189,4 +189,4 @@ end_time = time.time()
 
 print(f"Runtime {utility.get_time_formatted(end_time-start_time)}")
 
-test(metrics=True,use_gui= False)
+test(metrics=True,use_gui= True)
