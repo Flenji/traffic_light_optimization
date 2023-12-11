@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-12-10 17:07:36 by Eclipse SUMO netedit Version 1.19.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Routes -->
+    <flow id="low_traffic" begin="0.00" end="1200.00" vehsPerHour="200.00">
+        <routeDistribution>
+            <!-- 0.35 -->
+            <route id="r_0" edges="A1B1 B1B0" probability="0.07"/>
+            <route id="r_1" edges="A1B1 B1C1" probability="0.2"/>
+            <route id="r_2" edges="A1B1 B1B2" probability="0.07"/>
+            <route id="r_3" edges="A1B1 B1A1" probability="0.01"/>
+            <!-- 0.15 -->
+            <route id="r_4" edges="B0B1 B1C1" probability="0.06"/>
+            <route id="r_5" edges="B0B1 B1B2" probability="0.025"/>
+            <route id="r_6" edges="B0B1 B1A1" probability="0.06"/>
+            <route id="r_7" edges="B0B1 B1B0" probability="0.005"/>
+            <!-- 0.35 -->
+            <route id="r_8" edges="C1B1 B1B2" probability="0.07"/>
+            <route id="r_9" edges="C1B1 B1A1" probability="0.2"/>
+            <route id="r_10" edges="C1B1 B1B0" probability="0.07"/>
+            <route id="r_11" edges="C1B1 B1C1" probability="0.01"/>
+            <!-- 0.15 -->
+            <route id="r_12" edges="B2B1 B1A1" probability="0.06"/>
+            <route id="r_13" edges="B2B1 B1B0" probability="0.025"/>
+            <route id="r_14" edges="B2B1 B1C1" probability="0.06"/>
+            <route id="r_15" edges="B2B1 B1B2" probability="0.005"/>
+        </routeDistribution>
+    </flow>
+
+    <flow id="medium_traffic" begin="1200.00" end="2400.00" vehsPerHour="400.00">
+        <routeDistribution>
+            <!-- 0.35 -->
+            <route id="r_0" edges="A1B1 B1B0" probability="0.07"/>
+            <route id="r_1" edges="A1B1 B1C1" probability="0.2"/>
+            <route id="r_2" edges="A1B1 B1B2" probability="0.07"/>
+            <route id="r_3" edges="A1B1 B1A1" probability="0.01"/>
+            <!-- 0.15 -->
+            <route id="r_4" edges="B0B1 B1C1" probability="0.06"/>
+            <route id="r_5" edges="B0B1 B1B2" probability="0.025"/>
+            <route id="r_6" edges="B0B1 B1A1" probability="0.06"/>
+            <route id="r_7" edges="B0B1 B1B0" probability="0.005"/>
+            <!-- 0.35 -->
+            <route id="r_8" edges="C1B1 B1B2" probability="0.07"/>
+            <route id="r_9" edges="C1B1 B1A1" probability="0.2"/>
+            <route id="r_10" edges="C1B1 B1B0" probability="0.07"/>
+            <route id="r_11" edges="C1B1 B1C1" probability="0.01"/>
+            <!-- 0.15 -->
+            <route id="r_12" edges="B2B1 B1A1" probability="0.06"/>
+            <route id="r_13" edges="B2B1 B1B0" probability="0.025"/>
+            <route id="r_14" edges="B2B1 B1C1" probability="0.06"/>
+            <route id="r_15" edges="B2B1 B1B2" probability="0.005"/>
+        </routeDistribution>
+    </flow>
+
+    <flow id="high_traffic" begin="2400.00" end="3600.00" vehsPerHour="800.00">
+        <routeDistribution>
+            <!-- 0.35 -->
+            <route id="r_0" edges="A1B1 B1B0" probability="0.07"/>
+            <route id="r_1" edges="A1B1 B1C1" probability="0.2"/>
+            <route id="r_2" edges="A1B1 B1B2" probability="0.07"/>
+            <route id="r_3" edges="A1B1 B1A1" probability="0.01"/>
+            <!-- 0.15 -->
+            <route id="r_4" edges="B0B1 B1C1" probability="0.06"/>
+            <route id="r_5" edges="B0B1 B1B2" probability="0.025"/>
+            <route id="r_6" edges="B0B1 B1A1" probability="0.06"/>
+            <route id="r_7" edges="B0B1 B1B0" probability="0.005"/>
+            <!-- 0.35 -->
+            <route id="r_8" edges="C1B1 B1B2" probability="0.07"/>
+            <route id="r_9" edges="C1B1 B1A1" probability="0.2"/>
+            <route id="r_10" edges="C1B1 B1B0" probability="0.07"/>
+            <route id="r_11" edges="C1B1 B1C1" probability="0.01"/>
+            <!-- 0.15 -->
+            <route id="r_12" edges="B2B1 B1A1" probability="0.06"/>
+            <route id="r_13" edges="B2B1 B1B0" probability="0.025"/>
+            <route id="r_14" edges="B2B1 B1C1" probability="0.06"/>
+            <route id="r_15" edges="B2B1 B1B2" probability="0.005"/>
+        </routeDistribution>
+    </flow>
+    
+</routes>
