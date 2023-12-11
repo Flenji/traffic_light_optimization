@@ -41,7 +41,7 @@ def generate_random_partition(total_sum, num_elements):
     return random_numbers
 
 
-def define_new_flows(route_file, number_routes, total_vehsPerHour, total_routeProbs):
+def define_new_flows(route_file, number_routes):
     """
     """
     # Read XML file
@@ -50,7 +50,6 @@ def define_new_flows(route_file, number_routes, total_vehsPerHour, total_routePr
 
     # Generate random values
     vehsPerHour = round(float(random.randint(1800, 3600)), 2)
-    total_vehsPerHour += vehsPerHour
     route_probabilities = generate_random_partition(100, number_routes)
 
     # Modify attributes in the route file with the random values
@@ -58,19 +57,13 @@ def define_new_flows(route_file, number_routes, total_vehsPerHour, total_routePr
     for i in range(len(route_probabilities)):
         route = './/route[@id="r_' + str(i) + '"]'
         root.find(route).set('probability', str(route_probabilities[i]))
-        total_routeProbs[i] += route_probabilities[i]
 
     # Write updated XML back to the file
     tree.write(route_file)
 
-    return total_vehsPerHour, total_routeProbs
-
 
 scores = [] #utility.load_object("scores") #keeping track of scores and epsilons for vizualization
 epsilons = [] #utility.load_object("epsilons")
-
-total_vehsPerHour = 0
-total_routeProbs = [0 for i in range(10)]
 
 ddqn_agent = ddqn.Agent(learning_rate = 0.0001, input_dim = (21,), n_actions = 4, \
                         mem_size = 3000000, eps_dec = 1e-6, batch_size = 36, name = "ddqn10", \
@@ -78,7 +71,7 @@ ddqn_agent = ddqn.Agent(learning_rate = 0.0001, input_dim = (21,), n_actions = 4
 
 for n in range(500):    
     
-    total_vehsPerHour, total_routeProbs = define_new_flows('Networks/second_random.rou.xml', 10, total_vehsPerHour, total_routeProbs)
+    define_new_flows('Networks/second_random.rou.xml', 10)
 
     env = sumo_rl.parallel_env(net_file='Networks/second.net.xml',
                   route_file='Networks/second_random.rou.xml',
