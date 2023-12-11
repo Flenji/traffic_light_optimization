@@ -107,6 +107,62 @@ class DDQN(nn.Module):
     def load(self):
         #print(f"---   loading model {self.name}   ---")
         self.load_state_dict(T.load(self.checkpoint_file))
+
+
+class DDQN_deeper(nn.Module):
+    """
+    This class implement the basic functionality of the Double-Deep-Q-Network 
+    """
+    
+    def __init__(self, learning_rate, input_dim, n_actions, name, checkpoint_dir):
+        super(DDQN,self).__init__()
+        
+        self.name = name
+        self.checkpoint_dir = checkpoint_dir
+        self.checkpoint_file = os.path.join(self.checkpoint_dir,name)
+        
+        
+        self.learning_rate = learning_rate
+        self.input_dim = input_dim
+        self.n_actions = n_actions
+        
+        #Network architecture
+        self.layer1 = nn.Linear(*input_dim, 128)
+        self.dropout1 = nn.Dropout(p=0.5)
+        self.layer2 = nn.Linear(128, 256)
+        self.dropout2 = nn.Dropout(p=0.5)
+        self.layer3 = nn.Linear(256, 128)
+        self.dropout3 = nn.Dropout(p=0.5)
+        self.layer4 = nn.Linear(128, n_actions)
+        
+        self.optimizer = optim.Adam(self.parameters(), lr=learning_rate)
+        
+        self.loss = nn.MSELoss()
+        self.device = T.device("cuda:0" if T.cuda.is_available() else "cpu")
+        self.to(self.device)
+        
+    def forward(self, x):
+        """
+        Calculates values of output nodes for given observation x
+        """
+        x = F.relu(self.layer1(x))
+        x = self.dropout1(x)
+        x = F.relu(self.layer2(x))
+        x = self.dropout2(x)
+        x = F.relu(self.layer3(x))
+        x = self.dropout3(x)
+        x = self.layer4(x)
+        
+        return x
+    
+    def save(self):
+        #print(f"---   saving model: {self.name}   ---")
+        T.save(self.state_dict(),self.checkpoint_file)
+        
+    def load(self):
+        #print(f"---   loading model {self.name}   ---")
+        self.load_state_dict(T.load(self.checkpoint_file))
+
         
 class Agent():
     def __init__(self, learning_rate, input_dim, n_actions, mem_size, batch_size,\
