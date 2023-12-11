@@ -73,7 +73,7 @@ total_vehsPerHour = 0
 total_routeProbs = [0 for i in range(10)]
 
 ddqn_agent = ddqn.Agent(learning_rate = 0.0001, input_dim = (21,), n_actions = 4, \
-                        mem_size = 3000000, eps_dec = 1e-6, batch_size = 36, name = "ddqn9", \
+                        mem_size = 3000000, eps_dec = 1e-6, batch_size = 36, name = "ddqn10", \
                             checkpoint_dir = "model_checkpoint", gamma=0.9)
 
 for n in range(500):    
@@ -111,11 +111,11 @@ for n in range(500):
         epsilons.append(ddqn_agent.epsilon)
     
     if n % 10 == 0:
-        ddqn_agent.save_model("model9")
-        utility.save_object(scores, "scores9")
-        utility.save_object(epsilons, "epsilons9")
+        ddqn_agent.save_model("model10")
+        utility.save_object(scores, "scores10")
+        utility.save_object(epsilons, "epsilons10")
         print(f"current epsilon: {ddqn_agent.epsilon}")
 
     env.close()
 
-utility.plot_learning_curve(scores, epsilons, filename = "model9", path="plotting", mean_over=1000)
+utility.plot_learning_curve(scores, epsilons, filename = "model10", path="plotting", mean_over=1000)
