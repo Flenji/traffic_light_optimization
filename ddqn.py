@@ -3,6 +3,11 @@
 Created on Fri Nov  3 14:25:12 2023
 
 @author: hanne
+To learn how to implement Deep-Q-Learning in Python, an online course 
+"deep-q-learning-from-paper-to-code" by Phil Tabor was followed.
+
+The code follows the structure of his implementtion which can be found on 
+GitHub:  https://github.com/philtabor/Deep-Q-Learning-Paper-To-Code
 """
 
 import random
@@ -76,12 +81,8 @@ class DDQN(nn.Module):
         
         #Network architecture
         self.layer1 = nn.Linear(*input_dim, 128)
-        self.dropout1 = nn.Dropout(p=0.5)
-        self.layer2 = nn.Linear(128, 256)
-        self.dropout2 = nn.Dropout(p=0.5)
-        self.layer3 = nn.Linear(256, 128)
-        self.dropout3 = nn.Dropout(p=0.5)
-        self.layer4 = nn.Linear(128, n_actions)
+        self.layer2 = nn.Linear(128, 128)
+        self.layer3 = nn.Linear(128, n_actions)
         
         self.optimizer = optim.Adam(self.parameters(), lr=learning_rate)
         
@@ -94,21 +95,17 @@ class DDQN(nn.Module):
         Calculates values of output nodes for given observation x
         """
         x = F.relu(self.layer1(x))
-        x = self.dropout1(x)
         x = F.relu(self.layer2(x))
-        x = self.dropout2(x)
-        x = F.relu(self.layer3(x))
-        x = self.dropout3(x)
-        x = self.layer4(x)
+        x = self.layer3(x)
         
         return x
     
     def save(self):
-        print("---   saving model   ---")
+        #print(f"---   saving model: {self.name}   ---")
         T.save(self.state_dict(),self.checkpoint_file)
         
     def load(self):
-        print("---   loading model   ---")
+        #print(f"---   loading model {self.name}   ---")
         self.load_state_dict(T.load(self.checkpoint_file))
         
 class Agent():
@@ -143,11 +140,23 @@ class Agent():
         self.memory = Memory(mem_size,input_dim)
     
     def get_action(self, state):
+        """
+        Depending on the epsilon value, this function returns either a random action
+        or the best learned one for the given observation.
+        """
         if np.random.random() < self.epsilon: #select random action with regards to epsilon
             action = np.random.choice(self.actions)
         else:
             state = T.tensor(state, dtype=T.float).to(self.online_q.device)
             action = T.argmax(self.online_q.forward(state)).item()
+        return action
+    
+    def get_test_action(self,state):
+        """
+        This function returns always the best calculated action. No exploring.
+        """
+        state = T.tensor(state, dtype=T.float).to(self.online_q.device)
+        action = T.argmax(self.online_q.forward(state)).item()
         return action
     
     def store_transition(self,s,a,r,s_,d):
@@ -166,22 +175,24 @@ class Agent():
         
         return states, actions, rewards, states_, dones
     
-    def save_model(self, filename):
+    def save_model(self):
+        print(f"---   saving model: {self.name}   ---")
         self.online_q.save()
         self.target_q.save()
        
         #  saving epsilon
-        checkpoint_epsilon = os.path.join(self.checkpoint_dir,filename)
+        checkpoint_epsilon = os.path.join(self.checkpoint_dir,"epsilon")
         with open (checkpoint_epsilon, "wb") as file:
             pickle.dump(self.epsilon, file)
         
         
-    def load_model(self, filename):
+    def load_model(self):
+        print(f"---   loading model: {self.name}   ---")
         self.online_q.load()
         self.target_q.load()
         
         #loading epsilon
-        checkpoint_epsilon = os.path.join(self.checkpoint_dir,filename)
+        checkpoint_epsilon = os.path.join(self.checkpoint_dir,"epsilon")
         with open(checkpoint_epsilon, 'rb') as file:
             self.epsilon = pickle.load(file)
         
@@ -204,7 +215,7 @@ class Agent():
             return
         
         
-        self.online_q.optimizer.zero_grad()
+        self.online_q.optimizer.zero_grad() #reset the gradients to zero to avoid wrong gradient calculation
         
         self.update_target_network()
         
@@ -220,13 +231,10 @@ class Agent():
         q_eval = self.online_q.forward(states_)[indices]
         
         
-        eval_actions = q_eval.argmax(dim=1)
+        eval_actions = q_eval.argmax(dim=1) #chooses best action according to the onlone network
         
         q_next[dones] = 0.0
-        
-        test = q_next[indices, eval_actions]
-        
-        
+                  
         q_target = rewards + self.gamma * q_next[indices,eval_actions]
         
         loss = self.online_q.loss(q_pred,q_target).to(self.online_q.device)
