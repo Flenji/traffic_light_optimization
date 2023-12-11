@@ -12,20 +12,21 @@ import numpy as np
 import ddqn
 import utility
 import os
-import custom_observation 
+import observation_spaces 
 import time
 import reward_fncs
 
 start_time = time.time()
 
-net_file = 'fumos/V/V.net.xml'
-route_file='fumos/V/V.rou.xml'
-observation_class = custom_observation.ComplexObservationFunction#CustomObservationFunction
+net_file = 'Networks/VI/VI.net.xml'
+route_file='Networks/VI/VI_all.rou.xml'
+observation_class = observation_spaces.CustomObservationFunction
+simulation_seconds = 3600
 
 #set parameters for using sumolib in ComplexObservationFunction
-custom_observation.ComplexObservationFunction.net_file = net_file 
-custom_observation.ComplexObservationFunction.radius = 1
-custom_observation.ComplexObservationFunction.mode = "lane"
+observation_spaces.ComplexObservationFunction.net_file = net_file 
+observation_spaces.ComplexObservationFunction.radius = 1
+observation_spaces.ComplexObservationFunction.mode = "lane"
 
 
 
@@ -37,22 +38,22 @@ batch_size = 36
 gamma = 0.99
 eps_min = 0.1
 replace = 1000
-checkpoint_dir = utility.createPath("model_checkpoint", "sixth_iteration")
+checkpoint_dir = utility.createPath("model_checkpoint", "multi_agent")
 
 #Load or Save model?
-SAVE = False
+SAVE = True
 LOAD = True
 
 
 env = sumo_rl.parallel_env(net_file=net_file,
                   route_file=route_file,
                   use_gui=False,
-                  num_seconds=3600,
+                  num_seconds=simulation_seconds,
                   observation_class = observation_class,#ComplexObservationFunction,
                   reward_fn = "average-speed",#reward_fncs.multi_agent_reward3, # "average-speed",
                   )
 
-agent_suffix = "_V_complex_Observation_simple_Reward"
+agent_suffix = "_sObs_sRew"
 
 ### Setting the DDQN Agent for every possible agent
 agents = dict.fromkeys(env.possible_agents)
@@ -100,8 +101,9 @@ def train(min_learning_steps):
                 obs_, reward, termination, truncation, info = observations_[agent],\
                     rewards[agent], terminations[agent], truncations[agent], infos[agent]
                     
-                done = termination or truncation #TODO: see if this is needed for SUMO
-                
+                done = termination or truncation #this is not necessary in this environment because there is no "end" of traffic
+                if done:
+                    print("is done")
                 
                 agents[agent].learn(obs, action, reward, obs_, done)
                 scores[agent].append(reward)
@@ -137,7 +139,7 @@ def test(random = False, metrics = False, use_gui = True):
     env = sumo_rl.parallel_env(net_file=net_file,
                       route_file=route_file,
                       use_gui=use_gui,
-                      num_seconds=3600,
+                      num_seconds=simulation_seconds,
                       observation_class = observation_class,#ComplexObservationFunction,
                       reward_fn = "average-speed",#reward_fncs.multi_agent_reward3, # "average-speed",
                       additional_sumo_cmd = additional_sumo_cmd,#,"--edgedata-output metrics.xml",
@@ -162,12 +164,13 @@ def test(random = False, metrics = False, use_gui = True):
         file_name_old = utility.createPath("metrics","metrics.xml")
         file_name_new = utility.createPath("metrics","metrics"+agent_suffix+".xml")
         os.rename(file_name_old,file_name_new)
-#train(min_learning_steps)
+
+train(min_learning_steps)
 env.close()
 
 end_time = time.time()
 
 print(f"Runtime {utility.get_time_formatted(end_time-start_time)}")
 
-test(metrics=True,use_gui= False)
+#test(metrics=True,use_gui= False)
 
