@@ -61,10 +61,10 @@ def define_new_flows(route_file, number_routes):
 
 start_time = time.time()
 
-net_file = 'Networks/second.net.xml'
-train_route_file = 'Networks/second_random.rou.xml'
-test_route_file = 'Networks/second.rou.xml'
-observation_class = observation_spaces.ObservationFunction2_lanes # !!!!!!!!!!!!!!! Is it the same as the default?
+net_file = 'Networks/single_agent_networks/second.net.xml'
+train_route_file = 'Networks/single_agent_networks/second_random.rou.xml'
+test_route_file = 'Networks/single_agent_networks/second.rou.xml'
+observation_class = observation_spaces.ObservationFunction2_lanes
 reward_function = reward_fncs._combined_reward4
 num_seconds = 10800
 
@@ -82,7 +82,7 @@ checkpoint_dir = utility.createPath("model_checkpoint", "sixth_iteration") # !!!
 SAVE = False
 LOAD = True
 
-agent_suffix = "_reward4_randtraining" # !!!!!
+agent_suffix = "_reward3_randtraining" # !!!!!
 
 epsilons = []
 scores = []
@@ -183,10 +183,10 @@ def test(random = False, metrics = False, use_gui = True):
         file_name_new = utility.createPath("metrics","metrics"+agent_suffix+".xml")
         os.rename(file_name_old,file_name_new)
 
-#train(num_simulations)
+train(num_simulations)
 
 end_time = time.time()
 
 print(f"Runtime {utility.get_time_formatted(end_time-start_time)}")
 
-test(metrics=True,use_gui= True)
+#test(metrics=True,use_gui= True)

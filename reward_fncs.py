@@ -111,11 +111,21 @@ def _penalize_phase_change(traffic_signal):
     """ Reward function that penalizes the fact that the the traffic light phase is changed without a substantial benefit for the traffic. 
     Humans do not react immediately to signals and, thus, the more phase changes, the more time is lost when trying to start up the vehicle.
     """
-    if hasattr(traffic_signal, 'last_phase_id') and traffic_signal.last_phase_id != traci.trafficlight.getPhase(traffic_signal.id):
-        traffic_signal.last_phase_id = traci.trafficlight.getPhase(traffic_signal.id)
-        print("Phase change")
+    if hasattr(traffic_signal, 'last_green_lanes'):
+        last_green_lanes = traffic_signal.last_green_lanes
+        green_lanes = traffic_signal.green_lanes
+        same_green = 0
+        for i in range(len(green_lanes)):
+            if last_green_lanes[i] and green_lanes[i]:
+                same_green += 1
+
+        traffic_signal.last_green_lanes = green_lanes    
+        if same_green in [2,4]: # There are two or four lanes that have had green light in followed simulation steps -> there has been no phase change
+            #print("No Phase change")
+            return 1
         return 0
-    traffic_signal.last_phase_id = traci.trafficlight.getPhase(traffic_signal.id)
+    elif hasattr(traffic_signal, 'green_lanes'):
+        traffic_signal.last_green_lanes = traffic_signal.green_lanes
     return 1
     
 
