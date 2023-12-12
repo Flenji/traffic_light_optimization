@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 12 Dec 2023 04:20:12 PM CET by Eclipse SUMO GUI Version 1.8.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="Networks/single_agent_networks/second.net.xml"/>
+        <route-files value="Networks/single_agent_networks/second.rou.xml"/>
+        <additional-files value="additional.xml"/>
+    </input>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+        <waiting-time-memory value="1000"/>
+        <max-depart-delay value="-1"/>
+    </processing>
+
+    <traci_server>
+        <remote-port value="44687"/>
+    </traci_server>
+
+    <random_number>
+        <seed value="0"/>
+    </random_number>
+
+    <gui_only>
+        <quit-on-end value="true"/>
+        <start value="true"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="10800.00" id="teast">
+        <edge id="A0A1"/>
+        <edge id="A0B0"/>
+        <edge id="A1A0"/>
+        <edge id="A1A2"/>
+        <edge id="A1B1"/>
+        <edge id="A2A1"/>
+        <edge id="A2A3"/>
+        <edge id="A2B2"/>
+        <edge id="A3A2"/>
+        <edge id="A3A4"/>
+        <edge id="A3B3"/>
+        <edge id="A4A3"/>
+        <edge id="A4B4"/>
+        <edge id="B0A0"/>
+        <edge id="B0B1"/>
+        <edge id="B0C0"/>
+        <edge id="B1A1"/>
+        <edge id="B1B0"/>
+        <edge id="B1B2"/>
+        <edge id="B1C1"/>
+        <edge id="B2A2"/>
+        <edge id="B2B1"/>
+        <edge id="B2B3"/>
+        <edge id="B2C2" traveltime="167.98" density="181.18" occupancy="44.84" waitingTime="114094.00" timeLoss="149225.26" speed="0.49"/>
+        <edge id="B3A3"/>
+        <edge id="B3B2"/>
+        <edge id="B3B4"/>
+        <edge id="B3C3"/>
+        <edge id="B4A4"/>
+        <edge id="B4B3"/>
+        <edge id="B4C4"/>
+        <edge id="C0B0"/>
+        <edge id="C0C1"/>
+        <edge id="C0D0"/>
+        <edge id="C1B1"/>
+        <edge id="C1C0"/>
+        <edge id="C1C2" traveltime="25.80" density="87.54" occupancy="21.47" waitingTime="22284.00" timeLoss="57130.49" speed="3.15"/>
+        <edge id="C1D1"/>
+        <edge id="C2B2" traveltime="7.23" density="13.37" occupancy="3.14" waitingTime="27.00" timeLoss="2320.70" speed="10.97"/>
+        <edge id="C2C1" traveltime="6.51" density="5.57" occupancy="1.31" waitingTime="0.00" timeLoss="554.95" speed="12.20"/>
+        <edge id="C2C3" traveltime="6.66" density="23.91" occupancy="5.61" waitingTime="0.00" timeLoss="2733.05" speed="11.96"/>
+        <edge id="C2D2" traveltime="6.99" density="10.97" occupancy="2.55" waitingTime="0.00" timeLoss="1591.46" speed="11.40"/>
+        <edge id="C3B3"/>
+        <edge id="C3C2" traveltime="16.17" density="25.45" occupancy="6.10" waitingTime="4929.00" timeLoss="13742.45" speed="4.79"/>
+        <edge id="C3C4"/>
+        <edge id="C3D3"/>
+        <edge id="C4B4"/>
+        <edge id="C4C3"/>
+        <edge id="C4D4"/>
+        <edge id="D0C0"/>
+        <edge id="D0D1"/>
+        <edge id="D0E0"/>
+        <edge id="D1C1"/>
+        <edge id="D1D0"/>
+        <edge id="D1D2"/>
+        <edge id="D1E1"/>
+        <edge id="D2C2" traveltime="87.05" density="114.82" occupancy="28.53" waitingTime="63829.00" timeLoss="90968.31" speed="0.96"/>
+        <edge id="D2D1"/>
+        <edge id="D2D3"/>
+        <edge id="D2E2"/>
+        <edge id="D3C3"/>
+        <edge id="D3D2"/>
+        <edge id="D3D4"/>
+        <edge id="D3E3"/>
+        <edge id="D4C4"/>
+        <edge id="D4D3"/>
+        <edge id="D4E4"/>
+        <edge id="E0D0"/>
+        <edge id="E0E1"/>
+        <edge id="E1D1"/>
+        <edge id="E1E0"/>
+        <edge id="E1E2"/>
+        <edge id="E2D2"/>
+        <edge id="E2E1"/>
+        <edge id="E2E3"/>
+        <edge id="E3D3"/>
+        <edge id="E3E2"/>
+        <edge id="E3E4"/>
+        <edge id="E4D4"/>
+        <edge id="E4E3"/>
+    </interval>
+</meandata>

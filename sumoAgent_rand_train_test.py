@@ -76,13 +76,13 @@ batch_size = 36
 gamma = 0.9
 eps_min = 0.1
 replace = 1000
-checkpoint_dir = utility.createPath("model_checkpoint", "sixth_iteration") # !!!!!!!!!!
+checkpoint_dir = "model_checkpoint"
 
 #Load or Save model?
 SAVE = False
 LOAD = True
 
-agent_suffix = "_reward3_randtraining" # !!!!!
+agent_suffix = "_reward4_randtraining"
 
 epsilons = []
 scores = []
@@ -91,7 +91,10 @@ name = "ddqn" + agent_suffix
 ddqn_agent = ddqn.Agent(learning_rate=learning_rate, input_dim= (21,), n_actions=4,\
                        mem_size=mem_size, eps_dec=eps_dec, eps_min = eps_min, gamma = gamma,\
                        batch_size= batch_size, name = name, checkpoint_dir= checkpoint_dir,\
-                       replace = replace)
+                       replace = replace, deeper=True)
+
+if LOAD:
+        ddqn_agent.load_model()
 
 num_simulations = 500
 
@@ -183,10 +186,10 @@ def test(random = False, metrics = False, use_gui = True):
         file_name_new = utility.createPath("metrics","metrics"+agent_suffix+".xml")
         os.rename(file_name_old,file_name_new)
 
-train(num_simulations)
+#train(num_simulations)
 
 end_time = time.time()
 
 print(f"Runtime {utility.get_time_formatted(end_time-start_time)}")
 
-#test(metrics=True,use_gui= True)
+test(metrics=True,use_gui= True)

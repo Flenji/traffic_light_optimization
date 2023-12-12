@@ -78,3 +78,18 @@ def get_incoming_num_lanes_per_edge(traffic_signal, edges) -> List[int]:
     """Returns the number of lanes of each of the incoming edges of the intersection.
     """
     return [traci.edge.getLaneNumber(edgeID) for edgeID in edges]
+
+
+def getPhases(traffic_signal):
+    """
+    Creates the list of every possible green phase configuration for the traffic light.
+    """
+    phases = traci.trafficlight.getAllProgramLogics(traffic_signal.id)[0].phases
+    green_phases = []    
+    num_green_phases = 0
+    for phase in phases:
+        state = phase.state
+        if "y" not in state and (state.count("r") + state.count("s") != len(state)):
+            num_green_phases += 1
+            green_phases.append(state)
+    traffic_signal.tl_green_phases = green_phases

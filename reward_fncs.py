@@ -70,6 +70,8 @@ def _crossing_cars_reward(traffic_signal, lanes, direct):
     THEN WE WOULD NORMALIZE THE SUM BY RETURNING THE PRECENTAGE OF CARS CROSSING IN RELATION TO HOW MANY THERE WHERE IN THE EDGE
 
     OBS: The percentage of the total incoming vehicles that enter the intersection is used. The average of the percentage of the incoming edges could be used.
+
+    It creates the attribute for the traffic_signal "green_lanes", which is needed in other reward functions.
     """
     if (hasattr(traffic_signal, 'last_direct_vehicle_id') and direct) or (hasattr(traffic_signal, 'last_global_vehicle_id') and not direct):
         crossing = 0
@@ -111,23 +113,28 @@ def _penalize_phase_change(traffic_signal):
     """ Reward function that penalizes the fact that the the traffic light phase is changed without a substantial benefit for the traffic. 
     Humans do not react immediately to signals and, thus, the more phase changes, the more time is lost when trying to start up the vehicle.
     """
-    if hasattr(traffic_signal, 'last_green_lanes'):
-        last_green_lanes = traffic_signal.last_green_lanes
-        green_lanes = traffic_signal.green_lanes
-        same_green = 0
-        for i in range(len(green_lanes)):
-            if last_green_lanes[i] and green_lanes[i]:
-                same_green += 1
-
-        traffic_signal.last_green_lanes = green_lanes    
-        if same_green in [2,4]: # There are two or four lanes that have had green light in followed simulation steps -> there has been no phase change
-            #print("No Phase change")
-            return 1
+    if not hasattr(traffic_signal, 'tl_green_phases'):
+        aux_functions.getPhases(traffic_signal)
+    current_state = traci.trafficlight.getRedYellowGreenState(traffic_signal.id)
+    phase_id = [1  if current_state == state else 0 for state in traffic_signal.tl_green_phases]
+    if hasattr(traffic_signal, 'last_phase') and traffic_signal.last_phase != phase_id:
+        traffic_signal.last_phase = phase_id
         return 0
-    elif hasattr(traffic_signal, 'green_lanes'):
-        traffic_signal.last_green_lanes = traffic_signal.green_lanes
+    traffic_signal.last_phase = phase_id
     return 1
     
+
+def _BROKEN_penalize_phase_change(traffic_signal):
+    """ Proper version of the reward function that penalizes phase changes but, 
+    presumably, without any effect as getPhase() seems to return always the same index. 
+    """
+    new_phase = traci.trafficlight.getPhase(traffic_signal.id)
+    if hasattr(traffic_signal, 'last_phase') and traffic_signal.last_phase != new_phase:
+        traffic_signal.last_phase = new_phase
+        return 0
+    traffic_signal.last_phase = new_phase
+    return 1
+ 
 
 def _reward_green_to_congested(traffic_signal):
     """ Reward function that rewards the agent for letting vehicles that come from a congested edge through the intersection.
@@ -174,7 +181,7 @@ def _combined_reward2(traffic_signal):
     edges = traffic_signal.incoming_edges
     return 0.8 * _incoming_edge_congestion_reward(traffic_signal, edges) \
         + 0.15 * _long_waits_penalize(traffic_signal, edges) \
-        + 0.05 * _penalize_phase_change(traffic_signal)
+        + 0.05 * _BROKEN_penalize_phase_change(traffic_signal)
 
 
 def _combined_reward3(traffic_signal):
@@ -185,7 +192,7 @@ def _combined_reward3(traffic_signal):
     return 0.3 * _incoming_edge_congestion_reward(traffic_signal, edges) \
         + 0.2 * _long_waits_penalize(traffic_signal, edges) \
         + 0.1 * _avg_speed_reward(traffic_signal, edges, traffic_signal.in_lanes) \
-        + 0.35 * _crossing_cars_reward(traffic_signal, traffic_signal.in_lanes, True) + 0.05 * _penalize_phase_change(traffic_signal)
+        + 0.35 * _crossing_cars_reward(traffic_signal, traffic_signal.in_lanes, True) + 0.05 * _BROKEN_penalize_phase_change(traffic_signal)
 
 
 def _combined_reward4(traffic_signal):
@@ -196,7 +203,7 @@ def _combined_reward4(traffic_signal):
         + 0.2 * _long_waits_penalize(traffic_signal, edges) \
         + 0.1 * _avg_speed_reward(traffic_signal, edges, traffic_signal.in_lanes) \
         + 0.25 * _crossing_cars_reward(traffic_signal, traffic_signal.in_lanes, True) \
-        + 0.25 * _reward_green_to_congested(traffic_signal) + 0.05 * _penalize_phase_change(traffic_signal)
+        + 0.25 * _reward_green_to_congested(traffic_signal) + 0.05 * _BROKEN_penalize_phase_change(traffic_signal)
 
 
 #### MULTI-AGENT REWARD FUNCTIONS
