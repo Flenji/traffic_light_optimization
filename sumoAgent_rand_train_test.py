@@ -64,7 +64,7 @@ start_time = time.time()
 net_file = 'Networks/single_agent_networks/second.net.xml'
 train_route_file = 'Networks/single_agent_networks/second_random.rou.xml'
 test_route_file = 'Networks/single_agent_networks/second.rou.xml'
-observation_class = observation_spaces.ObservationFunction2_lanes
+observation_class = observation_spaces.ObservationFunction2
 reward_function = reward_fncs._combined_reward4
 num_seconds = 10800
 
@@ -145,7 +145,7 @@ def train(num_simulations):
                 utility.save_object(epsilons, "epsilons"+ agent_suffix, "results")
             print(f"current epsilon: {ddqn_agent.epsilon}")
     
-    utility.plot_learning_curves(scores, epsilons, 3, 3, filename = "model_720"+agent_suffix, path="results", mean_over=720) # !!!!!!!!!
+    utility.plot_learning_curve(scores, epsilons, filename = "model_"+agent_suffix, path="results", mean_over=1080)
 
 
 def test(random = False, metrics = False, use_gui = True):
@@ -162,9 +162,9 @@ def test(random = False, metrics = False, use_gui = True):
                       route_file=test_route_file,
                       use_gui=use_gui,
                       num_seconds=num_seconds,
-                      observation_class = observation_class, #ComplexObservationFunction,
+                      observation_class = observation_class,
                       reward_fn = reward_function,
-                      additional_sumo_cmd = additional_sumo_cmd, #,"--edgedata-output metrics.xml",
+                      additional_sumo_cmd = additional_sumo_cmd,
                       sumo_seed = 0
                       )
     

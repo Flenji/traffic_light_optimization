@@ -26,7 +26,7 @@ class ObservationFunction1(ObservationFunction):
         """Return the default observation."""
         phase_id = [1 if self.ts.green_phase == i else 0 for i in range(self.ts.num_green_phases)]  # one-hot encoding
         min_green = [0 if self.ts.time_since_last_phase_change < self.ts.min_green + self.ts.yellow_time else 1]
-        density = aux_functions.get_incoming_lanes_density(self.ts, self.ts.in_lanes)
+        density = aux_functions.get_lanes_density(self.ts, self.ts.in_lanes)
         observation = np.array(phase_id + min_green + density, dtype=np.float32)
         return observation
 
@@ -57,7 +57,7 @@ class ObservationFunction2(ObservationFunction):
         """Return the default observation."""
         phase_id = [1 if self.ts.green_phase == i else 0 for i in range(self.ts.num_green_phases)]  # one-hot encoding
         min_green = [0 if self.ts.time_since_last_phase_change < self.ts.min_green + self.ts.yellow_time else 1]
-        density = aux_functions.get_incoming_lanes_density(self.ts, self.ts.in_lanes)
+        density = aux_functions.get_lanes_density(self.ts, self.ts.in_lanes)
         queued = aux_functions.get_lanes_queue(self.ts, self.ts.in_lanes) # (self.ts.get_lanes_queue() to get the sum of queued vehicles)
         observation = np.array(phase_id + min_green + density + queued, dtype=np.float32)
         return observation
@@ -179,6 +179,7 @@ class CustomObservationFunction(ObservationFunction):
     def __init__(self, ts: TrafficSignal):
         """Initialize  observation function."""
         super().__init__(ts)
+        aux_functions._additional_tls_info(self.ts)
         
     def __call__(self) -> np.ndarray:
         """Return the observation."""

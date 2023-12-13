@@ -18,9 +18,9 @@ import reward_fncs
 
 start_time = time.time()
 
-net_file = 'Networks/single_agent_networks/second.net.xml'
-route_file='Networks/single_agent_networks/second.rou.xml'
-observation_class = observation_spaces.ObservationFunction1
+net_file = 'Networks/single_agent_networks/1w/1w.net.xml'
+route_file='Networks/single_agent_networks/1w/1w_all.rou.xml'
+observation_class = observation_spaces.ObservationFunction2
 reward_fn = reward_fncs._combined_reward2
 
 #set parameters for using sumolib in ComplexObservationFunction
@@ -50,7 +50,7 @@ env = sumo_rl.parallel_env(net_file=net_file,
                   reward_fn = reward_fn,
                   )
 
-agent_suffix = "_1w_obs1_rew1"
+agent_suffix = "_1w_obs2_rew2"
 
 ### Setting the DDQN Agent for every possible agent
 agents = dict.fromkeys(env.possible_agents)
@@ -117,7 +117,7 @@ def train(num_simulations):
             print(f"current epsilon: {epsilons[-1]}")
             print(f"learning steps taken: {learning_steps}")
     
-    utility.plot_learning_curves(scores, epsilons, 3, 3, filename = "model_"+agent_suffix, path="results", mean_over=100)
+    utility.plot_learning_curve(scores["B1"], epsilons, filename = "model"+agent_suffix, path="results", mean_over=360)
 
 
 def test(random = False, metrics = False, use_gui = True):
@@ -134,9 +134,9 @@ def test(random = False, metrics = False, use_gui = True):
                       route_file=route_file,
                       use_gui=use_gui,
                       num_seconds=3600,
-                      observation_class = observation_class,#ComplexObservationFunction,
-                      reward_fn = "average-speed",#reward_fncs.multi_agent_reward3, # "average-speed",
-                      additional_sumo_cmd = additional_sumo_cmd,#,"--edgedata-output metrics.xml",
+                      observation_class = observation_class,
+                      reward_fn = reward_fn,
+                      additional_sumo_cmd = additional_sumo_cmd,
                       sumo_seed = 0
                       )
     
@@ -151,20 +151,19 @@ def test(random = False, metrics = False, use_gui = True):
         
         observations_, rewards, terminations, truncations, infos = env.step(actions)
         observations = observations_ #setting new observation as current observation
-    
-    env.close()
-    
+        
     if metrics:
         file_name_old = utility.createPath("metrics","metrics.xml")
         file_name_new = utility.createPath("metrics","metrics"+agent_suffix+".xml")
         os.rename(file_name_old,file_name_new)
 
 train(num_simulations)
-env.close()
 
 end_time = time.time()
 
 print(f"Runtime {utility.get_time_formatted(end_time-start_time)}")
 
-#test(metrics=True,use_gui= False)
+#test(metrics=True,use_gui= True)
+
+env.close()
 

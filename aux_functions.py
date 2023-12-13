@@ -1,5 +1,5 @@
 """
-    This module contains the definition of several auxiliary functions designed for SUMO Reinforcement Learning.
+    This module contains the definition of several auxiliary functions designed for SUMO Reinforcement Learning agent training.
 
     Authors: AAU CS (IT) 07 - 03
 """
@@ -17,7 +17,7 @@ def _additional_tls_info(traffic_signal):
     traffic_signal.outgoing_edges = list(set([traci.lane.getEdgeID(lane) for lane in traffic_signal.out_lanes]))
 
 
-def get_incoming_edges_density(traffic_signal, edges) -> List[float]:
+def get_edges_density(traffic_signal, edges) -> List[float]:
     """Returns the density [0,1] of the vehicles in the incoming edges of the intersection.
 
     Obs: The density is computed as the number of vehicles divided by the number of vehicles that could fit in the edge.
@@ -26,7 +26,7 @@ def get_incoming_edges_density(traffic_signal, edges) -> List[float]:
     return [min(1, density) for density in edges_density]
 
 
-def get_incoming_lanes_density(traffic_signal, lanes) -> List[float]:
+def get_lanes_density(traffic_signal, lanes) -> List[float]:
     """Returns the density [0,1] of the vehicles in the incoming lanes of the intersection.
 
     Obs: The density is computed as the number of vehicles divided by the number of vehicles that could fit in the lane.
@@ -51,7 +51,7 @@ def get_edges_avg_speed(traffic_signal, edges) -> List[float]:
     return [traci.edge.getLastStepMeanSpeed(edgeID) for edgeID in edges]
 
 
-def get_incoming_vehicle_ids(traffic_signal, lanes) -> List[List[str]]:
+def get_vehicle_ids(traffic_signal, lanes) -> List[List[str]]:
     """Returns the ids of all the vehicles in the incoming lanes of the intersection.
     """
     ids = []
@@ -74,8 +74,8 @@ def get_crossing_vehicles(last_ids, new_ids) -> float:
     return crossing
 
 
-def get_incoming_num_lanes_per_edge(traffic_signal, edges) -> List[int]:
-    """Returns the number of lanes of each of the incoming edges of the intersection.
+def get_num_lanes_per_edge(traffic_signal, edges) -> List[int]:
+    """Returns the number of lanes of each of the given edges.
     """
     return [traci.edge.getLaneNumber(edgeID) for edgeID in edges]
 
@@ -86,10 +86,8 @@ def getPhases(traffic_signal):
     """
     phases = traci.trafficlight.getAllProgramLogics(traffic_signal.id)[0].phases
     green_phases = []    
-    num_green_phases = 0
     for phase in phases:
         state = phase.state
         if "y" not in state and (state.count("r") + state.count("s") != len(state)):
-            num_green_phases += 1
             green_phases.append(state)
     traffic_signal.tl_green_phases = green_phases
