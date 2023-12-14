@@ -24,7 +24,8 @@ def generate_random_partition(total_sum, num_elements):
     """
     """
     # Generate num_elements random numbers between 0 and total_sum
-    random_numbers = random.sample(range(total_sum), num_elements)
+    #random_numbers = random.sample(range(total_sum), num_elements)
+    random_numbers = random.choices(range(3, 31), k=num_elements)
 
     # Ensure that the total sum of numbers adds up to 100
     while sum(random_numbers) > total_sum:
@@ -46,11 +47,11 @@ def define_new_flows(route_file, number_routes):
     root = tree.getroot()
 
     # Generate random values
-    vehsPerHour = round(float(random.randint(1800, 3600)), 2)
+    vehsPerHour = round(float(random.randint(400, 2300)), 2)
     route_probabilities = generate_random_partition(100, number_routes)
 
     # Modify attributes in the route file with the random values
-    root.find('.//flow[@id="f_0"]').set('vehsPerHour', str(vehsPerHour))
+    root.find('.//flow[@id="random"]').set('vehsPerHour', str(vehsPerHour))
     for i in range(len(route_probabilities)):
         route = './/route[@id="r_' + str(i) + '"]'
         root.find(route).set('probability', str(route_probabilities[i]))
@@ -61,17 +62,17 @@ def define_new_flows(route_file, number_routes):
 
 start_time = time.time()
 
-net_file = 'Networks/single_agent_networks/second.net.xml'
-train_route_file = 'Networks/single_agent_networks/second_random.rou.xml'
-test_route_file = 'Networks/single_agent_networks/second.rou.xml'
+net_file = 'Networks/single_agent_networks/1w/1w.net.xml'
+train_route_file = 'Networks/single_agent_networks/1w/1w_random.rou.xml'
+test_route_file = 'Networks/single_agent_networks/1w/1w_low.rou.xml'
 observation_class = observation_spaces.ObservationFunction2
 reward_function = reward_fncs._combined_reward4
-num_seconds = 10800
+num_seconds = 7200
 
 ### SETTING HYPERPARAMETERS
 learning_rate = 0.0001
 mem_size = 3000000
-eps_dec = 1e-6
+eps_dec = 1.5e-6
 batch_size = 36
 gamma = 0.9
 eps_min = 0.1
@@ -79,8 +80,8 @@ replace = 1000
 checkpoint_dir = "model_checkpoint"
 
 #Load or Save model?
-SAVE = False
-LOAD = True
+SAVE = True
+LOAD = False
 
 agent_suffix = "_reward4_randtraining"
 
@@ -96,7 +97,7 @@ ddqn_agent = ddqn.Agent(learning_rate=learning_rate, input_dim= (21,), n_actions
 if LOAD:
         ddqn_agent.load_model()
 
-num_simulations = 500
+num_simulations = 450
 
 def train(num_simulations):
     """
@@ -105,7 +106,7 @@ def train(num_simulations):
     """
     for n in range(num_simulations):
 
-        define_new_flows(train_route_file, 10)
+        define_new_flows(train_route_file, 12)
 
         env = sumo_rl.parallel_env(net_file= net_file,
                 route_file=train_route_file,
@@ -144,8 +145,10 @@ def train(num_simulations):
                 utility.save_object(scores, "scores"+agent_suffix, "results")
                 utility.save_object(epsilons, "epsilons"+ agent_suffix, "results")
             print(f"current epsilon: {ddqn_agent.epsilon}")
-    
-    utility.plot_learning_curve(scores, epsilons, filename = "model_"+agent_suffix, path="results", mean_over=1080)
+
+        env.close()
+
+    utility.plot_learning_curve(scores, epsilons, filename = "model_"+agent_suffix, path="results", mean_over=720)
 
 
 def test(random = False, metrics = False, use_gui = True):
@@ -186,10 +189,10 @@ def test(random = False, metrics = False, use_gui = True):
         file_name_new = utility.createPath("metrics","metrics"+agent_suffix+".xml")
         os.rename(file_name_old,file_name_new)
 
-#train(num_simulations)
+train(num_simulations)
 
 end_time = time.time()
 
 print(f"Runtime {utility.get_time_formatted(end_time-start_time)}")
 
-test(metrics=True,use_gui= True)
+#test(metrics=True,use_gui= True)

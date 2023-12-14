@@ -1,0 +1,25 @@
+<!-- generated on 2023-12-10 17:07:36 by Eclipse SUMO netedit Version 1.19.0
+--><routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Routes -->
+    <flow id="random" begin="0.00" end="7200.00" vehsPerHour="1542.0">
+        <routeDistribution>
+            <!-- 0.35 -->
+            <route id="r_0" edges="A1B1 B1B0" probability="3"/>
+            <route id="r_1" edges="A1B1 B1C1" probability="3"/>
+            <route id="r_2" edges="A1B1 B1B2" probability="6"/>
+            <!-- 0.15 -->
+            <route id="r_3" edges="B0B1 B1C1" probability="3"/>
+            <route id="r_4" edges="B0B1 B1B2" probability="9"/>
+            <route id="r_5" edges="B0B1 B1A1" probability="17"/>
+            <!-- 0.35 -->
+            <route id="r_6" edges="C1B1 B1B2" probability="26"/>
+            <route id="r_7" edges="C1B1 B1A1" probability="10"/>
+            <route id="r_8" edges="C1B1 B1B0" probability="10"/>
+            <!-- 0.15 -->
+            <route id="r_9" edges="B2B1 B1A1" probability="3"/>
+            <route id="r_10" edges="B2B1 B1B0" probability="7"/>
+            <route id="r_11" edges="B2B1 B1C1" probability="3"/>
+        </routeDistribution>
+    </flow>
+    
+</routes>

@@ -21,7 +21,7 @@ start_time = time.time()
 net_file = 'Networks/single_agent_networks/1w/1w.net.xml'
 route_file='Networks/single_agent_networks/1w/1w_all.rou.xml'
 observation_class = observation_spaces.ObservationFunction2
-reward_fn = reward_fncs._combined_reward2
+reward_fn = reward_fncs._combined_reward4
 
 #set parameters for using sumolib in ComplexObservationFunction
 #custom_observation.ComplexObservationFunction.net_file = net_file 
@@ -50,7 +50,7 @@ env = sumo_rl.parallel_env(net_file=net_file,
                   reward_fn = reward_fn,
                   )
 
-agent_suffix = "_1w_obs2_rew2"
+agent_suffix = "_1w_obs2_rew4"
 
 ### Setting the DDQN Agent for every possible agent
 agents = dict.fromkeys(env.possible_agents)
