@@ -64,7 +64,7 @@ start_time = time.time()
 
 net_file = 'Networks/single_agent_networks/1w/1w.net.xml'
 train_route_file = 'Networks/single_agent_networks/1w/1w_random.rou.xml'
-test_route_file = 'Networks/single_agent_networks/1w/1w_low.rou.xml'
+test_route_file = 'Networks/single_agent_networks/1w/1w_high.rou.xml'
 observation_class = observation_spaces.ObservationFunction2
 reward_function = reward_fncs._combined_reward4
 num_seconds = 7200
@@ -148,7 +148,7 @@ def train(num_simulations):
 
         env.close()
 
-    utility.plot_learning_curve(scores, epsilons, filename = "model_"+agent_suffix, path="results", mean_over=720)
+    utility.plot_learning_curve(scores, epsilons, filename = "model_"+agent_suffix, path="results", mean_over=2400)
 
 
 def test(random = False, metrics = False, use_gui = True):

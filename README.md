@@ -1,4 +1,4 @@
-# New approaches on traffic lights optimization using Reinforcement Learning Agents
+# New approaches on traffic lights optimization using Reinforcement Learning
 This is the repository containing the scripts and files related to the research portraied by the paper "".  
 
 ## Table of Contents

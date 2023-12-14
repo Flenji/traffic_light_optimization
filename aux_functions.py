@@ -17,42 +17,54 @@ def _additional_tls_info(traffic_signal):
     traffic_signal.outgoing_edges = list(set([traci.lane.getEdgeID(lane) for lane in traffic_signal.out_lanes]))
 
 
-def get_edges_density(traffic_signal, edges) -> List[float]:
-    """Returns the density [0,1] of the vehicles in the incoming edges of the intersection.
+def get_edges_density(edges) -> List[float]:
+    """Returns the density of the vehicles in some given edges.
 
-    Obs: The density is computed as the number of vehicles divided by the number of vehicles that could fit in the edge.
+    Obs: The density is computed as the number of vehicles present divided by the number of vehicles that could fit in the edge.
+
+    RANGE: [[0,1]]
     """
     edges_density = [traci.edge.getLastStepOccupancy(edgeID) for edgeID in edges]
     return [min(1, density) for density in edges_density]
 
 
-def get_lanes_density(traffic_signal, lanes) -> List[float]:
-    """Returns the density [0,1] of the vehicles in the incoming lanes of the intersection.
+def get_lanes_density(lanes) -> List[float]:
+    """Returns the density of the vehicles in some given lanes.
 
-    Obs: The density is computed as the number of vehicles divided by the number of vehicles that could fit in the lane.
+    Obs: The density is computed as the number of vehicles present divided by the number of vehicles that could fit in the lane.
+
+    RANGE: [[0,1]]
     """
     return [traci.lane.getLastStepOccupancy(laneID) for laneID in lanes]
 
 
-def get_edges_queue(traffic_signal, edges) -> List[int]:
-    """Returns the number of queued vehicles of the vehicles in the incoming edges of the intersection.
+def get_edges_queue(edges) -> List[int]:
+    """Returns the number of queued vehicles in some given edges.
+
+    RANGE: [[0,edge_max_capacity]]    
     """
     return [traci.edge.getLastStepHaltingNumber(edgeID) for edgeID in edges]
 
-def get_lanes_queue(traffic_signal, lanes) -> List[int]:
-    """Returns the number of queued vehicles of the vehicles in the incoming lanes of the intersection.
+def get_lanes_queue(lanes) -> List[int]:
+    """Returns the number of queued vehicles in some given lanes.
+
+    RANGE: [[0,lane_max_capacity]]
     """
     return [traci.lane.getLastStepHaltingNumber(laneID) for laneID in lanes]
 
 
-def get_edges_avg_speed(traffic_signal, edges) -> List[float]:
-    """Returns the average speed in the last step in the incoming edges of the intersection.
+def get_edges_avg_speed(edges) -> List[float]:
+    """Returns the average speed in the last step in some given edges.
+
+    RANGE: [[0,edge_max_speed]]
     """
     return [traci.edge.getLastStepMeanSpeed(edgeID) for edgeID in edges]
 
 
-def get_vehicle_ids(traffic_signal, lanes) -> List[List[str]]:
-    """Returns the ids of all the vehicles in the incoming lanes of the intersection.
+def get_vehicle_ids(lanes) -> List[List[str]]:
+    """Returns the ids of all the vehicles in some given edges.
+
+    RANGE: [[0,edge_max_speed]]
     """
     ids = []
     for laneID in lanes:
@@ -63,6 +75,8 @@ def get_vehicle_ids(traffic_signal, lanes) -> List[List[str]]:
 def get_crossing_vehicles(last_ids, new_ids) -> float:
     """Returns the number of vehicles from an incoming edge that have crossed the intersection, 
     computed as the number of vehicles whose id was in the incoming edge but no longer is.
+
+    RANGE: [0,len(last_ids)]
     """
     crossing = 0
     i = 0
@@ -74,15 +88,17 @@ def get_crossing_vehicles(last_ids, new_ids) -> float:
     return crossing
 
 
-def get_num_lanes_per_edge(traffic_signal, edges) -> List[int]:
+def get_num_lanes_per_edge(edges) -> List[int]:
     """Returns the number of lanes of each of the given edges.
+
+    RANGE: [[1, inf)]
     """
     return [traci.edge.getLaneNumber(edgeID) for edgeID in edges]
 
 
 def getPhases(traffic_signal):
     """
-    Creates the list of every possible green phase configuration for the traffic light.
+    Creates the list of every possible green phase configuration for the traffic light. Saves the result as an attribute in the traffic signal.
     """
     phases = traci.trafficlight.getAllProgramLogics(traffic_signal.id)[0].phases
     green_phases = []    

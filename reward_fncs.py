@@ -17,7 +17,7 @@ def _incoming_edge_congestion_reward(traffic_signal, edges):
 
         RETURN: One - Average of the squared congestion percentage of the incoming edges. RANGE: [0, 1]
     """
-    congestions = aux_functions.get_edges_density(traffic_signal, edges)
+    congestions = aux_functions.get_edges_density(edges)
     #print("_incoming_edge_congestion_reward")
     #print("congestions: ", congestions)
     return 1-(sum(congestion**2 for congestion in congestions)/len(edges))
@@ -87,7 +87,7 @@ def _crossing_cars_reward(traffic_signal, lanes, direct):
             green_lanes = [False for i in range(len(last))] # Vector used to indicate the lanes which have some vehicles crossing -> have green light 
         else: 
             last = traffic_signal.last_global_vehicle_id
-        new = aux_functions.get_vehicle_ids(traffic_signal, lanes)
+        new = aux_functions.get_vehicle_ids(lanes)
         for i in range(len(last)):
             last_ids = last[i]
             new_ids = new[i]
@@ -109,9 +109,9 @@ def _crossing_cars_reward(traffic_signal, lanes, direct):
 
         return crossing/total_cars if total_cars != 0 else 0
     if direct:
-        traffic_signal.last_direct_vehicle_id = aux_functions.get_vehicle_ids(traffic_signal, lanes)
+        traffic_signal.last_direct_vehicle_id = aux_functions.get_vehicle_ids(lanes)
     else: 
-        traffic_signal.last_global_vehicle_id = aux_functions.get_vehicle_ids(traffic_signal, lanes)
+        traffic_signal.last_global_vehicle_id = aux_functions.get_vehicle_ids(lanes)
     return 0
 
 
@@ -132,46 +132,29 @@ def _penalize_phase_change(traffic_signal):
     return 1
     
 
-def _BROKEN_penalize_phase_change(traffic_signal):
-    """ Proper version of the reward function that penalizes phase changes but, 
-    presumably, without any effect as getPhase() seems to return always the same index. 
-    """
-    new_phase = traci.trafficlight.getPhase(traffic_signal.id)
-    if hasattr(traffic_signal, 'last_phase') and traffic_signal.last_phase != new_phase:
-        traffic_signal.last_phase = new_phase
-        return 0
-    traffic_signal.last_phase = new_phase
-    return 1
- 
-
 def _reward_green_to_congested(traffic_signal, lanes):
     """ Reward function that rewards the agent for letting vehicles that come from a congested lane through the intersection.
 
     OBS: If we want to reward the agent for clearing congested lanes, it is difficult to do so by looking only at the congestion after the action as, probably,
     a lot of cars will still come to the congested lane and, thus, the congestion level won't change even if a lot of cars have been let through.
 
-    RETURN: Average congestion of the lanes that have green light. RANGE: [0,1]
+    RETURN: Sum of the congestions, had by the lanes that have green light, before the simulation step. RANGE: [0,1]
     """
     #print("reward_green_to_congested")
     if hasattr(traffic_signal, 'last_lane_congestion'):
         last_congestions = traffic_signal.last_lane_congestion
+        #print(last_congestions)
         total_congestion = 0
-        current_state = traci.trafficlight.getRedYellowGreenState(traffic_signal.id)
-        affected_lanes = current_state.count("G") + current_state.count("g")
 
         green_lanes = traffic_signal.green_lanes
         for i in range(len(green_lanes)):
             if green_lanes[i]:
                 total_congestion += last_congestions[i]
 
-        traffic_signal.last_lane_congestion = aux_functions.get_lanes_density(traffic_signal, lanes)
-        #print("Total congestion: ", total_congestion, " Affected lanes: ", affected_lanes)
-
-        if affected_lanes != 0 and total_congestion/affected_lanes > 1:
-            print("reward_green", last_congestions)
-
-        return total_congestion/affected_lanes if affected_lanes != 0 else 0
-    traffic_signal.last_lane_congestion = aux_functions.get_lanes_density(traffic_signal, lanes)
+        traffic_signal.last_lane_congestion = aux_functions.get_lanes_density(lanes)
+        #print(total_congestion)
+        return min(1, total_congestion)
+    traffic_signal.last_lane_congestion = aux_functions.get_lanes_density(lanes)
     return 0
 
 
