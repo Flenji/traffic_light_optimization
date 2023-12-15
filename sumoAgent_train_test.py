@@ -13,6 +13,7 @@ import ddqn
 import utility
 import os
 import observation_spaces 
+import observation_spaces 
 import time
 import reward_fncs
 
@@ -38,9 +39,10 @@ gamma = 0.9
 eps_min = 0.1
 replace = 1000
 checkpoint_dir = "model_checkpoint"
+checkpoint_dir = utility.createPath("model_checkpoint", "multi_agent")
 
 #Load or Save model?
-SAVE = False
+SAVE = True
 LOAD = True
 
 env = sumo_rl.parallel_env(net_file=net_file,
@@ -98,8 +100,9 @@ def train(num_simulations):
                 obs_, reward, termination, truncation, info = observations_[agent],\
                     rewards[agent], terminations[agent], truncations[agent], infos[agent]
                     
-                done = termination or truncation #TODO: see if this is needed for SUMO
-                
+                done = termination or truncation #this is not necessary in this environment because there is no "end" of traffic
+                if done:
+                    print("is done")
                 
                 agents[agent].learn(obs, action, reward, obs_, done)
                 scores[agent].append(reward)
