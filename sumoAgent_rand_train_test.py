@@ -64,9 +64,10 @@ start_time = time.time()
 
 net_file = 'Networks/single_agent_networks/1w/1w.net.xml'
 train_route_file = 'Networks/single_agent_networks/1w/1w_random.rou.xml'
-test_route_file = 'Networks/single_agent_networks/1w/1w_high.rou.xml'
+test_suffix='_low'
+test_route_file = 'Networks/single_agent_networks/1w/1w'+test_suffix+'.rou.xml'
 observation_class = observation_spaces.ObservationFunction2
-reward_function = reward_fncs._combined_reward4
+reward_function = reward_fncs._combined_reward3
 num_seconds = 7200
 
 ### SETTING HYPERPARAMETERS
@@ -80,10 +81,10 @@ replace = 1000
 checkpoint_dir = "model_checkpoint"
 
 #Load or Save model?
-SAVE = True
-LOAD = False
+SAVE = False
+LOAD = True
 
-agent_suffix = "_reward4_randtraining"
+agent_suffix = "_reward3_randtraining"
 
 epsilons = []
 scores = []
@@ -186,13 +187,13 @@ def test(random = False, metrics = False, use_gui = True):
     
     if metrics:
         file_name_old = utility.createPath("metrics","metrics.xml")
-        file_name_new = utility.createPath("metrics","metrics"+agent_suffix+".xml")
+        file_name_new = utility.createPath("metrics","metrics"+agent_suffix+test_suffix+".xml")
         os.rename(file_name_old,file_name_new)
 
-train(num_simulations)
+#train(num_simulations)
 
 end_time = time.time()
 
 print(f"Runtime {utility.get_time_formatted(end_time-start_time)}")
 
-#test(metrics=True,use_gui= True)
+test(metrics=True,use_gui= False)

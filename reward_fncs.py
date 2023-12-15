@@ -211,25 +211,6 @@ def multi_agent_reward3(traffic_signal):
         + 0.2 * _long_waits_penalize(traffic_signal, direct_edges) \
         + 0.1 * _avg_speed_reward(traffic_signal, direct_edges, traffic_signal.direct_controlled_lanes) \
         + 0.35 * _crossing_cars_reward(traffic_signal, traffic_signal.direct_controlled_lanes, True) + 0.05 * _penalize_phase_change(traffic_signal)
-    global_reward = 0.4 * _incoming_edge_congestion_reward(traffic_signal, global_edges) \
-        + 0.25 * _long_waits_penalize(traffic_signal, global_edges) \
-        + 0.35 * _avg_speed_reward(traffic_signal, global_edges, traffic_signal.controlled_lanes) 
-    
-    return 0.7 * direct_reward + 0.3 * global_reward
-
-
-def multi_agent_reward3_2(traffic_signal):
-    """ First reward function for the multi-agent scenario, where traffic lights observe a wider observation space.
-    Based on the study of the third single-agent reward function.
-
-    The crossing cars for the global observed lanes are rewarded too.
-    """
-    direct_edges = traffic_signal.incoming_edges
-    global_edges = traffic_signal.controlled_edges
-    direct_reward = 0.3 * _incoming_edge_congestion_reward(traffic_signal, direct_edges) \
-        + 0.2 * _long_waits_penalize(traffic_signal, direct_edges) \
-        + 0.1 * _avg_speed_reward(traffic_signal, direct_edges, traffic_signal.direct_controlled_lanes) \
-        + 0.35 * _crossing_cars_reward(traffic_signal, traffic_signal.direct_controlled_lanes, True) + 0.05 * _penalize_phase_change(traffic_signal)
     global_reward = 0.3 * _incoming_edge_congestion_reward(traffic_signal, global_edges) \
         + 0.2 * _long_waits_penalize(traffic_signal, global_edges) \
         + 0.15 * _avg_speed_reward(traffic_signal, global_edges, traffic_signal.controlled_lanes)  \

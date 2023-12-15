@@ -19,9 +19,10 @@ import reward_fncs
 start_time = time.time()
 
 net_file = 'Networks/single_agent_networks/1w/1w.net.xml'
-route_file='Networks/single_agent_networks/1w/1w_all.rou.xml'
+test_suffix='_low'
+route_file='Networks/single_agent_networks/1w/1w'+test_suffix+'.rou.xml'
 observation_class = observation_spaces.ObservationFunction1
-reward_fn = reward_fncs._combined_reward4
+reward_fn = reward_fncs._combined_reward1
 
 #set parameters for using sumolib in ComplexObservationFunction
 #custom_observation.ComplexObservationFunction.net_file = net_file 
@@ -39,10 +40,8 @@ replace = 1000
 checkpoint_dir = "model_checkpoint"
 
 #Load or Save model?
-#SAVE = False
-#LOAD = True
-SAVE = True
-LOAD = False
+SAVE = False
+LOAD = True
 
 env = sumo_rl.parallel_env(net_file=net_file,
                   route_file=route_file,
@@ -52,7 +51,7 @@ env = sumo_rl.parallel_env(net_file=net_file,
                   reward_fn = reward_fn,
                   )
 
-agent_suffix = "_1w_obs1_rew4"
+agent_suffix = "_1w_obs1_rew1"
 
 ### Setting the DDQN Agent for every possible agent
 agents = dict.fromkeys(env.possible_agents)
@@ -156,16 +155,16 @@ def test(random = False, metrics = False, use_gui = True):
         
     if metrics:
         file_name_old = utility.createPath("metrics","metrics.xml")
-        file_name_new = utility.createPath("metrics","metrics"+agent_suffix+".xml")
+        file_name_new = utility.createPath("metrics","metrics"+agent_suffix+test_suffix+".xml")
         os.rename(file_name_old,file_name_new)
 
-train(num_simulations)
+#train(num_simulations)
 
 end_time = time.time()
 
 print(f"Runtime {utility.get_time_formatted(end_time-start_time)}")
 
-#test(metrics=True,use_gui= True)
+test(metrics=True,use_gui= False)
 
 env.close()
 
