@@ -14,7 +14,12 @@ import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 
-filenames = [file for file in os.listdir() if file.endswith(".xml")]
+
+figure_name = "low_traffic_comparison"
+foldername = "."
+specific_word = "_low"
+filenames = [os.path.join(foldername, file) for file in os.listdir(foldername) if file.endswith(".xml") and specific_word in file]
+
 
 def readXML(filename : str):
     """
@@ -32,7 +37,6 @@ xml_strings = [readXML(filename) for filename in filenames]
 xml_dicts = [xmltodict.parse(xml_string)["meandata"]["interval"] \
              for xml_string in xml_strings] #converts xml_strings to a python dictionary
 
-
 def getAttributes(attr_list):
     """
     Converts the xml_dicts into one dictionary with the specified attributes.
@@ -44,11 +48,11 @@ def getAttributes(attr_list):
         result[model] = {}
         for attr_name in attr_list:
             result[model][attr_name] =[]
-            for sub_dict in xml_dict:
-                result[model][attr_name].append(sub_dict["edge"][attr_name])
+            for sub_dict in xml_dict['edge']:
+                result[model][attr_name].append(sub_dict[attr_name])
     return result
             
-data = getAttributes(["@traveltime","@waitingTime","@timeLoss","@speed"])
+data = getAttributes(["@traveltime","@waitingTime","@timeLoss","@speed","@density"])
 
 
 #formatting the data for plotting
@@ -70,7 +74,7 @@ dd = {"Category":category, "Value":value, "Dataset":dataset}
 
 df = pd.DataFrame(dd)
 df["Normalized_Value"]=df.groupby(["Category"])["Value"].transform(lambda x: x / x.max()) #scaling every value to 0<= x <= 1
-
+df["Category"]=df["Category"].apply(lambda x: x.replace("@",""))
 
 plt.figure(figsize =(10,6))
 ax = sns.barplot(x='Category', y='Normalized_Value', hue='Dataset', data=df)
@@ -78,11 +82,5 @@ ax = sns.barplot(x='Category', y='Normalized_Value', hue='Dataset', data=df)
 plt.show()
 
 fig = ax.get_figure()
-fig.savefig("comparison.png")
+fig.savefig(figure_name+".png")
 #ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.2))
-
-
-
-            
-
-

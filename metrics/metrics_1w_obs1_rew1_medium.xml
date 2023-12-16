@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Dec 15 16:50:13 2023 by Eclipse SUMO sumo Version 1.8.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="Networks/single_agent_networks/1w/1w.net.xml"/>
+        <route-files value="Networks/single_agent_networks/1w/1w_medium.rou.xml"/>
+        <additional-files value="additional.xml"/>
+    </input>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+        <waiting-time-memory value="1000"/>
+        <max-depart-delay value="-1"/>
+    </processing>
+
+    <traci_server>
+        <remote-port value="44495"/>
+    </traci_server>
+
+    <random_number>
+        <seed value="0"/>
+    </random_number>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="3600.00" id="edgeData">
+        <edge id="A1B1" traveltime="11.12" density="10.36" occupancy="2.51" waitingTime="134.00" timeLoss="1320.95" speed="8.01"/>
+        <edge id="B0B1" traveltime="68.30" density="30.75" occupancy="7.62" waitingTime="7550.00" timeLoss="8892.64" speed="1.36"/>
+        <edge id="B1A1" traveltime="7.26" density="7.32" occupancy="1.73" waitingTime="0.00" timeLoss="228.21" speed="12.37"/>
+        <edge id="B1B0" traveltime="7.75" density="3.52" occupancy="0.83" waitingTime="0.00" timeLoss="159.70" speed="11.61"/>
+        <edge id="B1B2" traveltime="7.66" density="3.42" occupancy="0.80" waitingTime="0.00" timeLoss="152.20" speed="11.75"/>
+        <edge id="B1C1" traveltime="7.28" density="7.02" occupancy="1.66" waitingTime="0.00" timeLoss="217.19" speed="12.34"/>
+        <edge id="B2B1" traveltime="33.80" density="14.12" occupancy="3.46" waitingTime="2706.00" timeLoss="3615.17" speed="2.68"/>
+        <edge id="C1B1" traveltime="10.82" density="10.43" occupancy="2.54" waitingTime="98.00" timeLoss="1276.21" speed="8.27"/>
+    </interval>
+</meandata>

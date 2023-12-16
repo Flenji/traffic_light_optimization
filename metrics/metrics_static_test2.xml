@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sat Dec 16 18:11:59 2023 by Eclipse SUMO sumo Version 1.8.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="Networks/single_agent_networks/1w/1w.net.xml"/>
+        <route-files value="Networks/single_agent_networks/1w/1w_test2.rou.xml"/>
+        <additional-files value="additional.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="3600.00" id="edgeData">
+        <edge id="A1B1" traveltime="29.73" density="19.69" occupancy="4.81" waitingTime="3417.00" timeLoss="4873.23" speed="3.04"/>
+        <edge id="B0B1" traveltime="34.72" density="50.70" occupancy="12.39" waitingTime="9195.00" timeLoss="13173.51" speed="2.61"/>
+        <edge id="B1A1" traveltime="7.67" density="5.78" occupancy="1.36" waitingTime="0.00" timeLoss="275.38" speed="11.74"/>
+        <edge id="B1B0" traveltime="7.33" density="11.08" occupancy="2.62" waitingTime="0.00" timeLoss="422.55" speed="12.26"/>
+        <edge id="B1B2" traveltime="7.43" density="10.55" occupancy="2.50" waitingTime="0.00" timeLoss="393.95" speed="12.09"/>
+        <edge id="B1C1" traveltime="7.67" density="5.97" occupancy="1.40" waitingTime="0.00" timeLoss="290.56" speed="11.75"/>
+        <edge id="B2B1" traveltime="33.43" density="49.82" occupancy="12.16" waitingTime="8677.00" timeLoss="12849.92" speed="2.71"/>
+        <edge id="C1B1" traveltime="28.66" density="19.07" occupancy="4.66" waitingTime="3239.00" timeLoss="4667.13" speed="3.16"/>
+    </interval>
+</meandata>
