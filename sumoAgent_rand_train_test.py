@@ -16,6 +16,8 @@ import observation_spaces
 import time
 import reward_fncs
 
+import argparse
+
 from lxml import etree as ET
 import random
 
@@ -62,6 +64,28 @@ def define_new_flows(route_file, number_routes):
 
 start_time = time.time()
 
+############## Batch testing
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--test_suffix', type=str)
+parser.add_argument('--rew_suffix', type=str)
+parser.add_argument('--seed', type=str)
+args = parser.parse_args()
+
+net_file = 'Networks/single_agent_networks/1w/1w.net.xml'
+train_route_file = 'Networks/single_agent_networks/1w/1w_random.rou.xml'
+test_suffix=args.test_suffix
+rew_suffix=args.rew_suffix
+seed=args.seed
+test_route_file='Networks/single_agent_networks/1w/1w'+test_suffix+'.rou.xml'
+observation_class = observation_spaces.ObservationFunction2
+reward_function = getattr(reward_fncs, f'_combined_reward{rew_suffix}')
+num_seconds = 3600
+
+agent_suffix = "_reward"+rew_suffix+"_randtraining"
+
+##############
+"""
 net_file = 'Networks/single_agent_networks/1w/1w.net.xml'
 train_route_file = 'Networks/single_agent_networks/1w/1w_random.rou.xml'
 test_suffix='_low'
@@ -70,6 +94,8 @@ observation_class = observation_spaces.ObservationFunction2
 reward_function = reward_fncs._combined_reward3
 num_seconds = 7200
 
+agent_suffix = "_reward3_randtraining"
+"""
 ### SETTING HYPERPARAMETERS
 learning_rate = 0.0001
 mem_size = 3000000
@@ -83,8 +109,6 @@ checkpoint_dir = "model_checkpoint"
 #Load or Save model?
 SAVE = False
 LOAD = True
-
-agent_suffix = "_reward3_randtraining"
 
 epsilons = []
 scores = []
@@ -169,7 +193,7 @@ def test(random = False, metrics = False, use_gui = True):
                       observation_class = observation_class,
                       reward_fn = reward_function,
                       additional_sumo_cmd = additional_sumo_cmd,
-                      sumo_seed = 0
+                      sumo_seed = seed
                       )
     
     observations = env.reset()[0]
@@ -187,7 +211,8 @@ def test(random = False, metrics = False, use_gui = True):
     
     if metrics:
         file_name_old = utility.createPath("metrics","metrics.xml")
-        file_name_new = utility.createPath("metrics","metrics"+agent_suffix+test_suffix+".xml")
+        file_name_new = utility.createPath("metrics","metrics"+agent_suffix+test_suffix+"_"+seed+".xml")
+        #file_name_new = utility.createPath("metrics","metrics"+agent_suffix+test_suffix+".xml")
         os.rename(file_name_old,file_name_new)
 
 #train(num_simulations)

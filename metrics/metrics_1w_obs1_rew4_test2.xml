@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+	<interval begin="0.00" end="3600.00" id="edgeData">
+		<edge id="A1B1" traveltime="928.034" density="69.96600000000001" occupancy="17.462" waitingTime="21429.0" timeLoss="21856.296000000002" speed="3.468"></edge>
+		<edge id="B0B1" traveltime="4235.023999999999" density="143.502" occupancy="35.858" waitingTime="45506.8" timeLoss="45975.514" speed="0.1"></edge>
+		<edge id="B1A1" traveltime="7.132000000000001" density="0.7" occupancy="0.16599999999999998" waitingTime="0.0" timeLoss="26.956" speed="12.668000000000001"></edge>
+		<edge id="B1B0" traveltime="7.358" density="2.852" occupancy="0.672" waitingTime="0.0" timeLoss="119.22200000000001" speed="12.235999999999999"></edge>
+		<edge id="B1B2" traveltime="7.494" density="2.542" occupancy="0.6" waitingTime="0.0" timeLoss="107.81200000000001" speed="12.004000000000001"></edge>
+		<edge id="B1C1" traveltime="7.244" density="0.796" occupancy="0.188" waitingTime="0.0" timeLoss="28.818" speed="12.431999999999999"></edge>
+		<edge id="B2B1" traveltime="4112.824" density="148.886" occupancy="37.196000000000005" waitingTime="47069.2" timeLoss="47677.907999999996" speed="0.09400000000000001"></edge>
+		<edge id="C1B1" traveltime="867.6020000000001" density="70.5" occupancy="17.594" waitingTime="21595.2" timeLoss="22025.604" speed="3.508"></edge>
+	</interval>
+</meandata>

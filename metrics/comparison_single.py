@@ -15,10 +15,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-figure_name = "low_traffic_comparison"
+figure_name = "test2_traffic_comparison4"
 foldername = "."
-specific_word = "_low"
-filenames = [os.path.join(foldername, file) for file in os.listdir(foldername) if file.endswith(".xml") and specific_word in file]
+filenames = [os.path.join(foldername, file) for file in os.listdir(foldername) if file.endswith(".xml") and "_test2" in file 
+             and ("reward4" in file or "static" in file)]
 
 
 def readXML(filename : str):
@@ -78,9 +78,12 @@ df["Category"]=df["Category"].apply(lambda x: x.replace("@",""))
 
 plt.figure(figsize =(10,6))
 ax = sns.barplot(x='Category', y='Normalized_Value', hue='Dataset', data=df)
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.2), title='Agent', ncol=3)
 
 plt.show()
 
 fig = ax.get_figure()
-fig.savefig(figure_name+".png")
-#ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.2))
+fig.savefig(os.path.join("./plots", figure_name+".png"), bbox_inches='tight')
+
+
+

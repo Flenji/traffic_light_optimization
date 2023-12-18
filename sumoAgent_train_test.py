@@ -16,14 +16,40 @@ import observation_spaces
 import time
 import reward_fncs
 
+import argparse
+
 start_time = time.time()
 
+############## Batch testing
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--test_suffix', type=str)
+parser.add_argument('--rew_suffix', type=str)
+parser.add_argument('--obs_suffix', type=str)
+parser.add_argument('--seed', type=str)
+args = parser.parse_args()
+
+net_file = 'Networks/single_agent_networks/1w/1w.net.xml'
+test_suffix=args.test_suffix
+rew_suffix=args.rew_suffix
+obs_suffix=args.obs_suffix
+seed=args.seed
+route_file='Networks/single_agent_networks/1w/1w'+test_suffix+'.rou.xml'
+observation_class = getattr(observation_spaces, f'ObservationFunction{obs_suffix}')
+reward_fn = getattr(reward_fncs, f'_combined_reward{rew_suffix}')
+
+agent_suffix = "_1w_obs"+obs_suffix+"_rew"+rew_suffix
+
+##############
+"""
 net_file = 'Networks/single_agent_networks/1w/1w.net.xml'
 test_suffix='_low'
-route_file='Networks/single_agent_networks/1w/1w'+test_suffix+'.rou.xml'
-observation_class = observation_spaces.ObservationFunction1
-reward_fn = reward_fncs._combined_reward1
+route_file = 'Networks/single_agent_networks/1w/1w_low.rou.xml'
+observation_class = observation_spaces.ObservationFunction2
+reward_fn = reward_fncs._combined_reward4
 
+agent_suffix = "_1w_obs2_rew4"
+"""
 #set parameters for using sumolib in ComplexObservationFunction
 #custom_observation.ComplexObservationFunction.net_file = net_file 
 #custom_observation.ComplexObservationFunction.radius = 1
@@ -50,8 +76,6 @@ env = sumo_rl.parallel_env(net_file=net_file,
                   observation_class = observation_class,
                   reward_fn = reward_fn,
                   )
-
-agent_suffix = "_1w_obs1_rew1"
 
 ### Setting the DDQN Agent for every possible agent
 agents = dict.fromkeys(env.possible_agents)
@@ -138,7 +162,7 @@ def test(random = False, metrics = False, use_gui = True):
                       observation_class = observation_class,
                       reward_fn = reward_fn,
                       additional_sumo_cmd = additional_sumo_cmd,
-                      sumo_seed = 0
+                      sumo_seed = seed
                       )
     
     
@@ -155,7 +179,8 @@ def test(random = False, metrics = False, use_gui = True):
         
     if metrics:
         file_name_old = utility.createPath("metrics","metrics.xml")
-        file_name_new = utility.createPath("metrics","metrics"+agent_suffix+test_suffix+".xml")
+        file_name_new = utility.createPath("metrics","metrics"+agent_suffix+test_suffix+"_"+seed+".xml")
+        #file_name_new = utility.createPath("metrics","metrics"+agent_suffix+test_suffix+".xml")
         os.rename(file_name_old,file_name_new)
 
 #train(num_simulations)

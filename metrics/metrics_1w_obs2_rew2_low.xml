@@ -1,40 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- generated on Fri Dec 15 16:49:05 2023 by Eclipse SUMO sumo Version 1.8.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
-
-    <input>
-        <net-file value="Networks/single_agent_networks/1w/1w.net.xml"/>
-        <route-files value="Networks/single_agent_networks/1w/1w_low.rou.xml"/>
-        <additional-files value="additional.xml"/>
-    </input>
-
-    <processing>
-        <time-to-teleport value="-1"/>
-        <waiting-time-memory value="1000"/>
-        <max-depart-delay value="-1"/>
-    </processing>
-
-    <traci_server>
-        <remote-port value="56139"/>
-    </traci_server>
-
-    <random_number>
-        <seed value="0"/>
-    </random_number>
-
-</configuration>
--->
-
+<?xml version="1.0" encoding="utf-8"?>
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
-    <interval begin="0.00" end="3600.00" id="edgeData">
-        <edge id="A1B1" traveltime="11.80" density="4.67" occupancy="1.14" waitingTime="154.00" timeLoss="641.68" speed="7.60"/>
-        <edge id="B0B1" traveltime="123.31" density="23.54" occupancy="5.86" waitingTime="6623.00" timeLoss="7154.37" speed="0.76"/>
-        <edge id="B1A1" traveltime="7.23" density="3.30" occupancy="0.78" waitingTime="0.00" timeLoss="93.89" speed="12.42"/>
-        <edge id="B1B0" traveltime="7.70" density="1.47" occupancy="0.34" waitingTime="0.00" timeLoss="65.17" speed="11.69"/>
-        <edge id="B1B2" traveltime="7.74" density="1.59" occupancy="0.37" waitingTime="0.00" timeLoss="69.35" speed="11.62"/>
-        <edge id="B1C1" traveltime="7.23" density="3.07" occupancy="0.72" waitingTime="0.00" timeLoss="94.97" speed="12.43"/>
-        <edge id="B2B1" traveltime="79.28" density="14.47" occupancy="3.58" waitingTime="3794.00" timeLoss="4250.83" speed="1.17"/>
-        <edge id="C1B1" traveltime="12.48" density="5.59" occupancy="1.37" waitingTime="270.00" timeLoss="814.14" speed="7.24"/>
-    </interval>
+	<interval begin="0.00" end="3600.00" id="edgeData">
+		<edge id="A1B1" traveltime="3219.808" density="109.02799999999999" occupancy="27.248" waitingTime="34626.4" timeLoss="34851.362" speed="1.1400000000000001"></edge>
+		<edge id="B0B1" traveltime="21.185999999999996" density="3.6" occupancy="0.8799999999999999" waitingTime="534.2" timeLoss="781.1980000000001" speed="6.066"></edge>
+		<edge id="B1A1" traveltime="7.446000000000001" density="1.658" occupancy="0.392" waitingTime="0.0" timeLoss="64.956" speed="12.09"></edge>
+		<edge id="B1B0" traveltime="7.151999999999999" density="0.728" occupancy="0.174" waitingTime="0.0" timeLoss="25.208000000000002" speed="12.578"></edge>
+		<edge id="B1B2" traveltime="7.236" density="0.6920000000000001" occupancy="0.164" waitingTime="0.0" timeLoss="25.07" speed="12.440000000000001"></edge>
+		<edge id="B1C1" traveltime="7.478" density="1.704" occupancy="0.40199999999999997" waitingTime="0.0" timeLoss="63.15" speed="12.026"></edge>
+		<edge id="B2B1" traveltime="25.188" density="5.036" occupancy="1.238" waitingTime="877.6" timeLoss="1181.3700000000001" speed="5.612"></edge>
+		<edge id="C1B1" traveltime="2961.23" density="107.44200000000001" occupancy="26.85" waitingTime="34130.6" timeLoss="34348.780000000006" speed="1.614"></edge>
+	</interval>
 </meandata>
