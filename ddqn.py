@@ -115,7 +115,7 @@ class DDQN_deeper(nn.Module):
     """
     
     def __init__(self, learning_rate, input_dim, n_actions, name, checkpoint_dir):
-        super(DDQN,self).__init__()
+        super(DDQN_deeper,self).__init__()
         
         self.name = name
         self.checkpoint_dir = checkpoint_dir
@@ -167,7 +167,7 @@ class DDQN_deeper(nn.Module):
 class Agent():
     def __init__(self, learning_rate, input_dim, n_actions, mem_size, batch_size,\
                  name, checkpoint_dir, gamma = 0.99, eps_max = 1, eps_min = 0.01,\
-                     eps_dec = 5e-6, replace = 1000):
+                     eps_dec = 5e-6, replace = 1000, deeper=False):
         
         self.learning_rate = learning_rate
         
@@ -189,9 +189,12 @@ class Agent():
         
         self.replace = replace #after how many learning steps should the target-network be updated
         self.learning_counter = 0
-        
-        self.online_q = DDQN(learning_rate,input_dim,n_actions,name,checkpoint_dir) #two networks for deciding which action to take
-        self.target_q = DDQN(learning_rate,input_dim,n_actions,name,checkpoint_dir) # for calculating the target_value
+        if deeper:
+            self.online_q = DDQN_deeper(learning_rate,input_dim,n_actions,name,checkpoint_dir) #two networks for deciding which action to take
+            self.target_q = DDQN_deeper(learning_rate,input_dim,n_actions,name,checkpoint_dir) # for calculating the target_value
+        else:
+            self.online_q = DDQN(learning_rate,input_dim,n_actions,name,checkpoint_dir) #two networks for deciding which action to take
+            self.target_q = DDQN(learning_rate,input_dim,n_actions,name,checkpoint_dir) # for calculating the target_value
         
         self.memory = Memory(mem_size,input_dim)
     

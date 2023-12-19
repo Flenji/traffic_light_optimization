@@ -13,47 +13,47 @@ import ddqn
 import utility
 import os
 import observation_spaces 
+import observation_spaces 
 import time
 import reward_fncs
 
 start_time = time.time()
 
-net_file = 'Networks/VI/VI.net.xml'
-route_file='Networks/VI/VI_all_fix.rou.xml'
-observation_class = observation_spaces.ComplexObservationFunction
-simulation_seconds = 6000
+net_file = 'Networks/single_agent_networks/1w/1w.net.xml'
+test_suffix='_low'
+route_file='Networks/single_agent_networks/1w/1w'+test_suffix+'.rou.xml'
+observation_class = observation_spaces.ObservationFunction1
+reward_fn = reward_fncs._combined_reward1
 
 #set parameters for using sumolib in ComplexObservationFunction
-observation_spaces.ComplexObservationFunction.net_file = net_file 
-observation_spaces.ComplexObservationFunction.radius = 1
-observation_spaces.ComplexObservationFunction.mode = "lane"
-
-
+#custom_observation.ComplexObservationFunction.net_file = net_file 
+#custom_observation.ComplexObservationFunction.radius = 1
+#custom_observation.ComplexObservationFunction.mode = "lane"
 
 ### SETTING HYPERPARAMETERS
-learning_rate = 0.00075
-mem_size = 1000000
-eps_dec = 7e-6
+learning_rate = 0.0025
+mem_size = 3000000
+eps_dec = 1e-5
 batch_size = 36
-gamma = 0.95
+gamma = 0.9
 eps_min = 0.1
 replace = 1000
+checkpoint_dir = "model_checkpoint"
 checkpoint_dir = utility.createPath("model_checkpoint", "multi_agent")
 
 #Load or Save model?
 SAVE = False
 LOAD = True
 
-
 env = sumo_rl.parallel_env(net_file=net_file,
                   route_file=route_file,
                   use_gui=False,
-                  num_seconds=simulation_seconds,
-                  observation_class = observation_class,#ComplexObservationFunction,
-                  reward_fn = reward_fncs.multi_agent_reward3, # "average-speed",
+                  num_seconds=3600,
+                  observation_class = observation_class,
+                  reward_fn = reward_fn,
                   )
 
-agent_suffix = "_cObs_sRew"
+agent_suffix = "_1w_obs1_rew1"
 
 ### Setting the DDQN Agent for every possible agent
 agents = dict.fromkeys(env.possible_agents)
@@ -80,16 +80,15 @@ for agent in agents.keys():
 
 print(f"Agents in this simulation: {[a for a in agents.keys()]}")
 
-min_learning_steps = 150000
+num_simulations = 175
 
-def train(min_learning_steps):
+def train(num_simulations):
     """
     Trains the agents for minimum min_learning_steps. If the one learning episode ends (the simulations ends)
     and the ammount of learning steps taken is >= min_learning_steps the training is done.
     """
     learning_steps = 0
-    n = 0
-    while(learning_steps <= min_learning_steps):
+    for n in range(num_simulations):
         observations = env.reset()[0]
         print(f"Generation: {n}")
         while env.agents: #contains agents as long simulation is running
@@ -122,7 +121,6 @@ def train(min_learning_steps):
                 utility.save_object(epsilons, "epsilons"+ agent_suffix, "results")
             print(f"current epsilon: {epsilons[-1]}")
             print(f"learning steps taken: {learning_steps}")
-        n += 1
     
     utility.plot_learning_curves(scores, epsilons, 3, 3, filename = "model_1200"+agent_suffix, path="results", mean_over=1200)
 
@@ -158,9 +156,7 @@ def test(random = False, metrics = False, use_gui = True, test_name = ""):
         
         observations_, rewards, terminations, truncations, infos = env.step(actions)
         observations = observations_ #setting new observation as current observation
-    
-    env.close()
-    
+        
     if metrics:
         file_name_old = utility.createPath("metrics","metrics.xml")
         file_name_new = utility.createPath("metrics","metrics"+agent_suffix+"_"+test_name+".xml")

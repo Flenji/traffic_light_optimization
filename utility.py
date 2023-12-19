@@ -70,7 +70,7 @@ def plot_learning_curve(scores, epsilons, filename, path ="", mean_over = 10):
     #plt.plot(eps_avg)
     #plt.xlabel("Traffic")
     #plt.ylabel("Reward")
-    plt.title("Fumo Reward")
+    plt.title("Agent Training Results")
 
     plt.savefig(filename)
 
