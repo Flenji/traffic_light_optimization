@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-12-16 10:00:10 by Eclipse SUMO sumo Version 1.18.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="Networks/VI/VI.net.xml"/>
+        <route-files value="Networks/VI/VI_3_high.rou.xml"/>
+        <additional-files value="additional.xml"/>
+    </input>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+        <waiting-time-memory value="1000"/>
+        <max-depart-delay value="-1"/>
+    </processing>
+
+    <traci_server>
+        <remote-port value="61124"/>
+    </traci_server>
+
+    <random_number>
+        <seed value="0"/>
+    </random_number>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="25.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="732.30" density="1.18" occupancy="0.00" waitingTime="1.00" timeLoss="66.27" speed="8.70"/>
+    </interval>
+    <interval begin="25.00" end="50.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="736.47" density="3.33" occupancy="0.01" waitingTime="29.00" timeLoss="189.71" speed="8.59"/>
+    </interval>
+    <interval begin="50.00" end="75.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="704.75" density="5.09" occupancy="0.01" waitingTime="93.00" timeLoss="291.91" speed="8.52"/>
+    </interval>
+    <interval begin="75.00" end="100.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="819.50" density="6.35" occupancy="0.02" waitingTime="193.00" timeLoss="422.69" speed="7.45"/>
+    </interval>
+    <interval begin="100.00" end="125.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="787.78" density="6.80" occupancy="0.02" waitingTime="126.00" timeLoss="423.16" speed="7.91"/>
+    </interval>
+    <interval begin="125.00" end="150.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="737.64" density="6.86" occupancy="0.02" waitingTime="112.00" timeLoss="397.15" speed="8.40"/>
+    </interval>
+    <interval begin="150.00" end="175.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="744.93" density="6.69" occupancy="0.02" waitingTime="97.00" timeLoss="404.68" speed="8.31"/>
+    </interval>
+    <interval begin="175.00" end="200.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="694.63" density="6.77" occupancy="0.02" waitingTime="131.00" timeLoss="389.24" speed="8.76"/>
+    </interval>
+    <interval begin="200.00" end="225.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="904.43" density="6.95" occupancy="0.02" waitingTime="178.00" timeLoss="559.13" speed="6.90"/>
+    </interval>
+    <interval begin="225.00" end="250.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="801.03" density="7.98" occupancy="0.02" waitingTime="119.00" timeLoss="544.87" speed="7.86"/>
+    </interval>
+    <interval begin="250.00" end="275.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="837.20" density="8.02" occupancy="0.02" waitingTime="178.00" timeLoss="572.86" speed="7.43"/>
+    </interval>
+    <interval begin="275.00" end="300.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="827.58" density="7.73" occupancy="0.02" waitingTime="144.00" timeLoss="528.45" speed="7.64"/>
+    </interval>
+    <interval begin="300.00" end="325.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="832.63" density="7.93" occupancy="0.02" waitingTime="190.00" timeLoss="553.01" speed="7.57"/>
+    </interval>
+    <interval begin="325.00" end="350.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="778.27" density="7.63" occupancy="0.02" waitingTime="200.00" timeLoss="471.58" speed="8.15"/>
+    </interval>
+    <interval begin="350.00" end="375.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="833.53" density="7.14" occupancy="0.02" waitingTime="160.00" timeLoss="491.77" speed="7.57"/>
+    </interval>
+    <interval begin="375.00" end="400.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="876.62" density="6.87" occupancy="0.02" waitingTime="177.00" timeLoss="501.21" speed="7.23"/>
+    </interval>
+    <interval begin="400.00" end="425.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="892.04" density="7.65" occupancy="0.02" waitingTime="163.00" timeLoss="559.58" speed="7.10"/>
+    </interval>
+    <interval begin="425.00" end="450.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="856.64" density="7.90" occupancy="0.02" waitingTime="142.00" timeLoss="577.04" speed="7.19"/>
+    </interval>
+    <interval begin="450.00" end="475.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="884.27" density="8.09" occupancy="0.02" waitingTime="193.00" timeLoss="600.78" speed="7.10"/>
+    </interval>
+    <interval begin="475.00" end="500.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="780.95" density="8.00" occupancy="0.02" waitingTime="157.00" timeLoss="511.58" speed="7.93"/>
+    </interval>
+    <interval begin="500.00" end="525.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="941.71" density="7.94" occupancy="0.02" waitingTime="237.00" timeLoss="620.52" speed="6.66"/>
+    </interval>
+    <interval begin="525.00" end="550.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="883.40" density="8.03" occupancy="0.02" waitingTime="168.00" timeLoss="586.05" speed="7.10"/>
+    </interval>
+    <interval begin="550.00" end="575.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="845.80" density="8.45" occupancy="0.03" waitingTime="171.00" timeLoss="563.93" speed="7.55"/>
+    </interval>
+    <interval begin="575.00" end="600.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="853.60" density="7.75" occupancy="0.02" waitingTime="180.00" timeLoss="549.98" speed="7.29"/>
+    </interval>
+    <interval begin="600.00" end="625.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="774.59" density="7.50" occupancy="0.02" waitingTime="189.00" timeLoss="475.16" speed="7.97"/>
+    </interval>
+    <interval begin="625.00" end="650.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="837.75" density="7.39" occupancy="0.02" waitingTime="191.00" timeLoss="497.30" speed="7.52"/>
+    </interval>
+    <interval begin="650.00" end="675.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="845.24" density="7.26" occupancy="0.02" waitingTime="218.00" timeLoss="517.75" speed="7.35"/>
+    </interval>
+    <interval begin="675.00" end="700.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="836.52" density="7.46" occupancy="0.02" waitingTime="188.00" timeLoss="525.88" speed="7.51"/>
+    </interval>
+    <interval begin="700.00" end="725.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="870.40" density="7.84" occupancy="0.02" waitingTime="233.00" timeLoss="602.52" speed="7.04"/>
+    </interval>
+    <interval begin="725.00" end="750.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="880.22" density="7.86" occupancy="0.02" waitingTime="127.00" timeLoss="590.85" speed="7.17"/>
+    </interval>
+    <interval begin="750.00" end="775.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="981.17" density="8.08" occupancy="0.02" waitingTime="346.00" timeLoss="667.86" speed="6.45"/>
+    </interval>
+    <interval begin="775.00" end="800.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="945.28" density="8.39" occupancy="0.02" waitingTime="325.00" timeLoss="676.22" speed="6.59"/>
+    </interval>
+    <interval begin="800.00" end="825.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="950.67" density="8.63" occupancy="0.02" waitingTime="227.00" timeLoss="693.99" speed="6.55"/>
+    </interval>
+    <interval begin="825.00" end="850.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="780.51" density="7.90" occupancy="0.02" waitingTime="150.00" timeLoss="499.21" speed="8.00"/>
+    </interval>
+    <interval begin="850.00" end="875.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="756.70" density="7.27" occupancy="0.02" waitingTime="187.00" timeLoss="456.18" speed="8.03"/>
+    </interval>
+    <interval begin="875.00" end="900.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="810.77" density="7.21" occupancy="0.02" waitingTime="205.00" timeLoss="495.15" speed="7.49"/>
+    </interval>
+    <interval begin="900.00" end="925.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="845.91" density="7.37" occupancy="0.02" waitingTime="221.00" timeLoss="528.48" speed="7.19"/>
+    </interval>
+    <interval begin="925.00" end="950.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="836.19" density="7.73" occupancy="0.02" waitingTime="155.00" timeLoss="538.69" speed="7.43"/>
+    </interval>
+    <interval begin="950.00" end="975.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="862.01" density="7.55" occupancy="0.02" waitingTime="191.00" timeLoss="545.48" speed="7.23"/>
+    </interval>
+    <interval begin="975.00" end="1000.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1010.70" density="7.92" occupancy="0.02" waitingTime="289.00" timeLoss="671.92" speed="6.18"/>
+    </interval>
+    <interval begin="1000.00" end="1025.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="969.92" density="8.31" occupancy="0.02" waitingTime="184.00" timeLoss="661.76" speed="6.52"/>
+    </interval>
+    <interval begin="1025.00" end="1050.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="867.15" density="8.87" occupancy="0.03" waitingTime="177.00" timeLoss="628.01" speed="7.36"/>
+    </interval>
+    <interval begin="1050.00" end="1075.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="891.37" density="8.76" occupancy="0.03" waitingTime="171.00" timeLoss="649.19" speed="7.15"/>
+    </interval>
+    <interval begin="1075.00" end="1100.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="882.66" density="8.23" occupancy="0.02" waitingTime="193.00" timeLoss="602.65" speed="7.13"/>
+    </interval>
+    <interval begin="1100.00" end="1125.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1034.45" density="8.21" occupancy="0.02" waitingTime="243.00" timeLoss="708.45" speed="6.11"/>
+    </interval>
+    <interval begin="1125.00" end="1150.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1241.68" density="8.88" occupancy="0.03" waitingTime="376.00" timeLoss="866.41" speed="5.17"/>
+    </interval>
+    <interval begin="1150.00" end="1175.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1043.04" density="9.08" occupancy="0.03" waitingTime="371.00" timeLoss="782.37" speed="6.13"/>
+    </interval>
+    <interval begin="1175.00" end="1200.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="834.99" density="8.90" occupancy="0.03" waitingTime="174.00" timeLoss="610.99" speed="7.51"/>
+    </interval>
+    <interval begin="1200.00" end="1225.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="896.06" density="8.27" occupancy="0.02" waitingTime="162.00" timeLoss="624.48" speed="7.00"/>
+    </interval>
+    <interval begin="1225.00" end="1250.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="848.45" density="7.87" occupancy="0.02" waitingTime="186.00" timeLoss="564.79" speed="7.40"/>
+    </interval>
+    <interval begin="1250.00" end="1275.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1051.09" density="8.21" occupancy="0.02" waitingTime="291.00" timeLoss="736.25" speed="5.97"/>
+    </interval>
+    <interval begin="1275.00" end="1300.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1013.83" density="8.80" occupancy="0.03" waitingTime="276.00" timeLoss="767.16" speed="6.19"/>
+    </interval>
+    <interval begin="1300.00" end="1325.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1024.38" density="9.08" occupancy="0.03" waitingTime="332.00" timeLoss="789.96" speed="6.17"/>
+    </interval>
+    <interval begin="1325.00" end="1350.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1082.20" density="9.33" occupancy="0.03" waitingTime="328.00" timeLoss="841.97" speed="5.83"/>
+    </interval>
+    <interval begin="1350.00" end="1375.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1083.68" density="9.22" occupancy="0.03" waitingTime="287.00" timeLoss="830.90" speed="5.87"/>
+    </interval>
+    <interval begin="1375.00" end="1400.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1024.68" density="9.12" occupancy="0.03" waitingTime="337.00" timeLoss="777.77" speed="6.20"/>
+    </interval>
+    <interval begin="1400.00" end="1425.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1021.64" density="8.82" occupancy="0.03" waitingTime="310.00" timeLoss="734.22" speed="6.29"/>
+    </interval>
+    <interval begin="1425.00" end="1450.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1106.27" density="9.38" occupancy="0.03" waitingTime="392.00" timeLoss="832.28" speed="5.81"/>
+    </interval>
+    <interval begin="1450.00" end="1475.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1062.68" density="9.42" occupancy="0.03" waitingTime="393.00" timeLoss="823.29" speed="5.96"/>
+    </interval>
+    <interval begin="1475.00" end="1500.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1018.00" density="9.09" occupancy="0.03" waitingTime="285.00" timeLoss="765.97" speed="6.27"/>
+    </interval>
+    <interval begin="1500.00" end="1525.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1042.02" density="9.25" occupancy="0.03" waitingTime="361.00" timeLoss="799.92" speed="6.13"/>
+    </interval>
+    <interval begin="1525.00" end="1550.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1117.95" density="8.93" occupancy="0.03" waitingTime="353.00" timeLoss="820.98" speed="5.67"/>
+    </interval>
+    <interval begin="1550.00" end="1575.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1059.51" density="9.01" occupancy="0.03" waitingTime="319.00" timeLoss="803.16" speed="5.95"/>
+    </interval>
+    <interval begin="1575.00" end="1600.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="859.50" density="8.90" occupancy="0.03" waitingTime="141.00" timeLoss="655.09" speed="7.19"/>
+    </interval>
+    <interval begin="1600.00" end="1625.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1155.62" density="9.20" occupancy="0.03" waitingTime="311.00" timeLoss="868.75" speed="5.41"/>
+    </interval>
+    <interval begin="1625.00" end="1650.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1119.81" density="10.00" occupancy="0.03" waitingTime="394.00" timeLoss="921.30" speed="5.68"/>
+    </interval>
+    <interval begin="1650.00" end="1675.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1185.95" density="9.99" occupancy="0.03" waitingTime="356.00" timeLoss="954.08" speed="5.38"/>
+    </interval>
+    <interval begin="1675.00" end="1700.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1137.51" density="10.43" occupancy="0.03" waitingTime="329.00" timeLoss="978.65" speed="5.69"/>
+    </interval>
+    <interval begin="1700.00" end="1725.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="959.13" density="9.87" occupancy="0.03" waitingTime="302.00" timeLoss="821.49" speed="6.62"/>
+    </interval>
+    <interval begin="1725.00" end="1750.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1132.62" density="9.90" occupancy="0.03" waitingTime="425.00" timeLoss="933.42" speed="5.54"/>
+    </interval>
+    <interval begin="1750.00" end="1775.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1273.07" density="10.18" occupancy="0.03" waitingTime="560.00" timeLoss="1012.66" speed="5.05"/>
+    </interval>
+    <interval begin="1775.00" end="1800.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1248.55" density="10.38" occupancy="0.03" waitingTime="539.00" timeLoss="1020.54" speed="5.19"/>
+    </interval>
+    <interval begin="1800.00" end="1825.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1388.06" density="10.20" occupancy="0.03" waitingTime="509.00" timeLoss="1069.57" speed="4.67"/>
+    </interval>
+    <interval begin="1825.00" end="1850.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1278.92" density="10.90" occupancy="0.03" waitingTime="436.00" timeLoss="1089.77" speed="5.06"/>
+    </interval>
+    <interval begin="1850.00" end="1875.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1060.93" density="10.41" occupancy="0.03" waitingTime="268.00" timeLoss="912.87" speed="6.06"/>
+    </interval>
+    <interval begin="1875.00" end="1900.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1304.50" density="10.82" occupancy="0.03" waitingTime="552.00" timeLoss="1104.89" speed="4.97"/>
+    </interval>
+    <interval begin="1900.00" end="1925.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1474.58" density="11.55" occupancy="0.03" waitingTime="789.00" timeLoss="1236.07" speed="4.39"/>
+    </interval>
+    <interval begin="1925.00" end="1950.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1239.70" density="10.85" occupancy="0.03" waitingTime="541.00" timeLoss="1068.26" speed="5.19"/>
+    </interval>
+    <interval begin="1950.00" end="1975.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1421.26" density="10.15" occupancy="0.03" waitingTime="397.00" timeLoss="1078.76" speed="4.50"/>
+    </interval>
+    <interval begin="1975.00" end="2000.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1355.12" density="10.86" occupancy="0.03" waitingTime="541.00" timeLoss="1129.62" speed="4.73"/>
+    </interval>
+    <interval begin="2000.00" end="2025.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1472.47" density="11.55" occupancy="0.03" waitingTime="676.00" timeLoss="1249.27" speed="4.40"/>
+    </interval>
+    <interval begin="2025.00" end="2050.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1353.07" density="11.67" occupancy="0.03" waitingTime="511.00" timeLoss="1210.86" speed="4.76"/>
+    </interval>
+    <interval begin="2050.00" end="2075.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1009.63" density="11.51" occupancy="0.03" waitingTime="314.00" timeLoss="977.63" speed="6.22"/>
+    </interval>
+    <interval begin="2075.00" end="2100.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1137.95" density="12.00" occupancy="0.04" waitingTime="435.00" timeLoss="1111.48" speed="5.53"/>
+    </interval>
+    <interval begin="2100.00" end="2125.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1435.13" density="12.33" occupancy="0.04" waitingTime="758.00" timeLoss="1294.99" speed="4.48"/>
+    </interval>
+    <interval begin="2125.00" end="2150.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1269.98" density="11.34" occupancy="0.03" waitingTime="558.00" timeLoss="1111.78" speed="5.09"/>
+    </interval>
+    <interval begin="2150.00" end="2175.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1312.16" density="10.71" occupancy="0.03" waitingTime="383.00" timeLoss="1075.06" speed="4.90"/>
+    </interval>
+    <interval begin="2175.00" end="2200.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1381.03" density="11.31" occupancy="0.03" waitingTime="476.00" timeLoss="1161.25" speed="4.67"/>
+    </interval>
+    <interval begin="2200.00" end="2225.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1110.66" density="11.04" occupancy="0.03" waitingTime="342.00" timeLoss="1002.20" speed="5.73"/>
+    </interval>
+    <interval begin="2225.00" end="2250.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1198.30" density="11.10" occupancy="0.03" waitingTime="397.00" timeLoss="1064.99" speed="5.30"/>
+    </interval>
+    <interval begin="2250.00" end="2275.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1315.73" density="11.57" occupancy="0.03" waitingTime="546.00" timeLoss="1169.66" speed="4.84"/>
+    </interval>
+    <interval begin="2275.00" end="2300.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1073.32" density="11.15" occupancy="0.03" waitingTime="304.00" timeLoss="970.12" speed="6.00"/>
+    </interval>
+    <interval begin="2300.00" end="2325.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1180.19" density="10.31" occupancy="0.03" waitingTime="357.00" timeLoss="972.24" speed="5.49"/>
+    </interval>
+    <interval begin="2325.00" end="2350.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1634.45" density="10.96" occupancy="0.03" waitingTime="735.00" timeLoss="1231.61" speed="4.01"/>
+    </interval>
+    <interval begin="2350.00" end="2375.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1292.43" density="11.23" occupancy="0.03" waitingTime="602.00" timeLoss="1122.43" speed="4.95"/>
+    </interval>
+    <interval begin="2375.00" end="2400.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1354.24" density="11.03" occupancy="0.03" waitingTime="603.00" timeLoss="1154.55" speed="4.69"/>
+    </interval>
+    <interval begin="2400.00" end="2425.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1374.43" density="11.41" occupancy="0.03" waitingTime="580.00" timeLoss="1189.62" speed="4.73"/>
+    </interval>
+    <interval begin="2425.00" end="2450.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1190.48" density="11.25" occupancy="0.03" waitingTime="374.00" timeLoss="1077.09" speed="5.43"/>
+    </interval>
+    <interval begin="2450.00" end="2475.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1232.23" density="11.30" occupancy="0.03" waitingTime="327.00" timeLoss="1111.50" speed="5.15"/>
+    </interval>
+    <interval begin="2475.00" end="2500.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1460.07" density="11.56" occupancy="0.03" waitingTime="585.00" timeLoss="1247.29" speed="4.37"/>
+    </interval>
+    <interval begin="2500.00" end="2525.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1697.44" density="12.08" occupancy="0.04" waitingTime="773.00" timeLoss="1360.64" speed="3.82"/>
+    </interval>
+    <interval begin="2525.00" end="2550.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1649.35" density="12.72" occupancy="0.04" waitingTime="922.00" timeLoss="1423.79" speed="3.95"/>
+    </interval>
+    <interval begin="2550.00" end="2575.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1759.98" density="12.94" occupancy="0.04" waitingTime="678.00" timeLoss="1527.74" speed="3.61"/>
+    </interval>
+    <interval begin="2575.00" end="2600.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1665.25" density="13.51" occupancy="0.04" waitingTime="827.00" timeLoss="1544.91" speed="3.84"/>
+    </interval>
+    <interval begin="2600.00" end="2625.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1437.79" density="14.08" occupancy="0.04" waitingTime="708.00" timeLoss="1493.38" speed="4.44"/>
+    </interval>
+    <interval begin="2625.00" end="2650.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1344.68" density="13.67" occupancy="0.04" waitingTime="639.00" timeLoss="1413.63" speed="4.73"/>
+    </interval>
+    <interval begin="2650.00" end="2675.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1257.84" density="12.54" occupancy="0.04" waitingTime="715.00" timeLoss="1239.39" speed="5.14"/>
+    </interval>
+    <interval begin="2675.00" end="2700.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1205.87" density="11.57" occupancy="0.03" waitingTime="547.00" timeLoss="1117.51" speed="5.36"/>
+    </interval>
+    <interval begin="2700.00" end="2725.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1123.01" density="11.08" occupancy="0.03" waitingTime="504.00" timeLoss="1025.58" speed="5.68"/>
+    </interval>
+    <interval begin="2725.00" end="2750.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1150.09" density="10.80" occupancy="0.03" waitingTime="534.00" timeLoss="1012.88" speed="5.55"/>
+    </interval>
+    <interval begin="2750.00" end="2775.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1143.69" density="10.77" occupancy="0.03" waitingTime="471.00" timeLoss="1019.62" speed="5.55"/>
+    </interval>
+    <interval begin="2775.00" end="2800.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1232.32" density="10.63" occupancy="0.03" waitingTime="571.00" timeLoss="1042.49" speed="5.21"/>
+    </interval>
+    <interval begin="2800.00" end="2825.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1288.09" density="10.32" occupancy="0.03" waitingTime="614.00" timeLoss="1048.54" speed="4.98"/>
+    </interval>
+    <interval begin="2825.00" end="2850.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1273.93" density="10.88" occupancy="0.03" waitingTime="619.00" timeLoss="1086.12" speed="5.07"/>
+    </interval>
+    <interval begin="2850.00" end="2875.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1324.61" density="11.29" occupancy="0.03" waitingTime="663.00" timeLoss="1148.40" speed="4.89"/>
+    </interval>
+    <interval begin="2875.00" end="2900.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1086.36" density="10.65" occupancy="0.03" waitingTime="368.00" timeLoss="961.67" speed="5.90"/>
+    </interval>
+    <interval begin="2900.00" end="2925.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1154.77" density="10.02" occupancy="0.03" waitingTime="412.00" timeLoss="927.83" speed="5.56"/>
+    </interval>
+    <interval begin="2925.00" end="2950.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1047.80" density="10.20" occupancy="0.03" waitingTime="383.00" timeLoss="862.04" speed="6.13"/>
+    </interval>
+    <interval begin="2950.00" end="2975.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1067.04" density="10.32" occupancy="0.03" waitingTime="417.00" timeLoss="884.77" speed="5.99"/>
+    </interval>
+    <interval begin="2975.00" end="3000.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1058.65" density="10.51" occupancy="0.03" waitingTime="444.00" timeLoss="922.82" speed="5.91"/>
+    </interval>
+    <interval begin="3000.00" end="3025.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1161.16" density="10.18" occupancy="0.03" waitingTime="509.00" timeLoss="959.23" speed="5.48"/>
+    </interval>
+    <interval begin="3025.00" end="3050.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1275.76" density="10.18" occupancy="0.03" waitingTime="581.00" timeLoss="1014.78" speed="5.08"/>
+    </interval>
+    <interval begin="3050.00" end="3075.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1132.68" density="10.41" occupancy="0.03" waitingTime="401.00" timeLoss="963.29" speed="5.69"/>
+    </interval>
+    <interval begin="3075.00" end="3100.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1085.74" density="10.61" occupancy="0.03" waitingTime="396.00" timeLoss="954.68" speed="5.93"/>
+    </interval>
+    <interval begin="3100.00" end="3125.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1079.40" density="10.48" occupancy="0.03" waitingTime="377.00" timeLoss="943.50" speed="5.97"/>
+    </interval>
+    <interval begin="3125.00" end="3150.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1146.09" density="10.08" occupancy="0.03" waitingTime="339.00" timeLoss="944.31" speed="5.61"/>
+    </interval>
+    <interval begin="3150.00" end="3175.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1054.52" density="10.50" occupancy="0.03" waitingTime="275.00" timeLoss="934.43" speed="5.98"/>
+    </interval>
+    <interval begin="3175.00" end="3200.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="902.15" density="9.99" occupancy="0.03" waitingTime="198.00" timeLoss="759.59" speed="6.99"/>
+    </interval>
+    <interval begin="3200.00" end="3225.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="932.18" density="9.20" occupancy="0.03" waitingTime="276.00" timeLoss="720.31" speed="6.72"/>
+    </interval>
+    <interval begin="3225.00" end="3250.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="947.07" density="9.10" occupancy="0.03" waitingTime="300.00" timeLoss="729.05" speed="6.72"/>
+    </interval>
+    <interval begin="3250.00" end="3275.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="880.92" density="8.93" occupancy="0.03" waitingTime="303.00" timeLoss="681.07" speed="7.18"/>
+    </interval>
+    <interval begin="3275.00" end="3300.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="931.65" density="8.47" occupancy="0.02" waitingTime="328.00" timeLoss="686.19" speed="6.76"/>
+    </interval>
+    <interval begin="3300.00" end="3325.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="938.76" density="8.33" occupancy="0.02" waitingTime="262.00" timeLoss="678.99" speed="6.64"/>
+    </interval>
+    <interval begin="3325.00" end="3350.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="930.00" density="8.61" occupancy="0.02" waitingTime="301.00" timeLoss="706.29" speed="6.64"/>
+    </interval>
+    <interval begin="3350.00" end="3375.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="920.09" density="8.56" occupancy="0.02" waitingTime="342.00" timeLoss="687.51" speed="6.74"/>
+    </interval>
+    <interval begin="3375.00" end="3400.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="921.20" density="8.45" occupancy="0.02" waitingTime="355.00" timeLoss="670.18" speed="6.75"/>
+    </interval>
+    <interval begin="3400.00" end="3425.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="984.30" density="8.32" occupancy="0.02" waitingTime="296.00" timeLoss="684.55" speed="6.42"/>
+    </interval>
+    <interval begin="3425.00" end="3450.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="899.27" density="8.84" occupancy="0.03" waitingTime="266.00" timeLoss="653.70" speed="7.07"/>
+    </interval>
+    <interval begin="3450.00" end="3475.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="915.91" density="8.28" occupancy="0.02" waitingTime="265.00" timeLoss="623.73" speed="6.95"/>
+    </interval>
+    <interval begin="3475.00" end="3500.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="889.90" density="8.45" occupancy="0.02" waitingTime="335.00" timeLoss="641.08" speed="7.01"/>
+    </interval>
+    <interval begin="3500.00" end="3525.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1058.63" density="9.01" occupancy="0.03" waitingTime="415.00" timeLoss="785.76" speed="6.02"/>
+    </interval>
+    <interval begin="3525.00" end="3550.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="931.19" density="8.64" occupancy="0.02" waitingTime="259.00" timeLoss="683.63" speed="6.63"/>
+    </interval>
+    <interval begin="3550.00" end="3575.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="840.62" density="8.44" occupancy="0.02" waitingTime="249.00" timeLoss="593.90" speed="7.41"/>
+    </interval>
+    <interval begin="3575.00" end="3600.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="876.66" density="7.89" occupancy="0.02" waitingTime="242.00" timeLoss="578.09" speed="7.21"/>
+    </interval>
+    <interval begin="3600.00" end="3625.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1039.73" density="8.11" occupancy="0.02" waitingTime="342.00" timeLoss="704.54" speed="6.09"/>
+    </interval>
+    <interval begin="3625.00" end="3650.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="899.00" density="8.65" occupancy="0.03" waitingTime="263.00" timeLoss="673.62" speed="6.94"/>
+    </interval>
+    <interval begin="3650.00" end="3675.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="837.89" density="8.23" occupancy="0.02" waitingTime="231.00" timeLoss="597.29" speed="7.32"/>
+    </interval>
+    <interval begin="3675.00" end="3700.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="855.27" density="8.17" occupancy="0.02" waitingTime="204.00" timeLoss="570.75" speed="7.40"/>
+    </interval>
+    <interval begin="3700.00" end="3725.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="867.08" density="7.64" occupancy="0.02" waitingTime="248.00" timeLoss="551.43" speed="7.25"/>
+    </interval>
+    <interval begin="3725.00" end="3750.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="848.05" density="7.66" occupancy="0.02" waitingTime="170.00" timeLoss="548.90" speed="7.38"/>
+    </interval>
+    <interval begin="3750.00" end="3775.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="921.32" density="8.10" occupancy="0.02" waitingTime="259.00" timeLoss="640.44" speed="6.71"/>
+    </interval>
+    <interval begin="3775.00" end="3800.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="870.38" density="7.84" occupancy="0.02" waitingTime="226.00" timeLoss="584.28" speed="7.06"/>
+    </interval>
+    <interval begin="3800.00" end="3825.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1014.66" density="8.79" occupancy="0.03" waitingTime="368.00" timeLoss="764.32" speed="6.15"/>
+    </interval>
+    <interval begin="3825.00" end="3850.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="933.61" density="9.11" occupancy="0.03" waitingTime="336.00" timeLoss="734.61" speed="6.78"/>
+    </interval>
+    <interval begin="3850.00" end="3875.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="922.63" density="8.80" occupancy="0.03" waitingTime="254.00" timeLoss="680.11" speed="6.86"/>
+    </interval>
+    <interval begin="3875.00" end="3900.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="862.64" density="8.25" occupancy="0.02" waitingTime="287.00" timeLoss="605.52" speed="7.27"/>
+    </interval>
+    <interval begin="3900.00" end="3925.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="837.20" density="7.84" occupancy="0.02" waitingTime="243.00" timeLoss="550.72" speed="7.55"/>
+    </interval>
+    <interval begin="3925.00" end="3950.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1025.17" density="7.79" occupancy="0.02" waitingTime="350.00" timeLoss="655.89" speed="6.17"/>
+    </interval>
+    <interval begin="3950.00" end="3975.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1118.30" density="8.32" occupancy="0.02" waitingTime="381.00" timeLoss="758.04" speed="5.66"/>
+    </interval>
+    <interval begin="3975.00" end="4000.00" id="metrics">
+        <edge id="AGGREGATED" numEdges="80" traveltime="1168.80" density="8.96" occupancy="0.03" waitingTime="573.00" timeLoss="849.64" speed="5.37"/>
+    </interval>
+</meandata>

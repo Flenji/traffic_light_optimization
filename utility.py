@@ -10,6 +10,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pickle
 import os
+from matplotlib.ticker import FuncFormatter
+
+
 
 def load_object(filename, path =""):
     """
@@ -70,9 +73,13 @@ def plot_learning_curve(scores, epsilons, filename, path ="", mean_over = 10):
     plt.title("Fumo Reward")
 
     plt.savefig(filename)
+
+def format_ticks(value, pos):
+    return f'{value / 1e4:.0f}e4'
     
-def plot_learning_curves(scores, epsilons, nrows, ncols,  filename, figsize=(15, 8),  path = "", mean_over = 10):
+def plot_learning_curves(scores, epsilons, nrows, ncols,  filename, figsize=(16, 8),  path = "", mean_over = 10):
     
+    labelsize = 20
     n_agents = len(scores)
     
     N = int(len(epsilons)/mean_over)
@@ -91,6 +98,8 @@ def plot_learning_curves(scores, epsilons, nrows, ncols,  filename, figsize=(15,
         
     x = np.arange(N) * mean_over
     
+    
+
     # Create a figure and a 2D array of subplots
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize, sharey=True, sharex= True) 
     
@@ -105,6 +114,7 @@ def plot_learning_curves(scores, epsilons, nrows, ncols,  filename, figsize=(15,
         ax = axes[row_idx, col_idx]
         ax.plot(x, running_avg[agent])
         ax.title.set_text(f"Agent {agent}")
+        ax.title.set_fontsize(labelsize)
         
         
         axes2.append(ax.twinx())
@@ -113,25 +123,39 @@ def plot_learning_curves(scores, epsilons, nrows, ncols,  filename, figsize=(15,
         ax2.plot(x, eps_avg, color = eps_color, alpha = 0.8)
         ax2.axis("off")
         
+        
         if col_idx == ncols-1:
             ax2.axis("on")
-            ax2.set_ylabel("epsilon")
+            ax2.set_ylabel("epsilon", fontsize=labelsize)
             ax2.yaxis.label.set_color(eps_color)
             ax2.tick_params(axis='y', colors=eps_color)
         elif col_idx == 0:
-            ax.set_ylabel("Average Reward")
+            ax.set_ylabel("Reward", fontsize=labelsize)
             
         if row_idx == nrows-1:
-            ax.set_xlabel("Learning Steps")
+            ax.set_xlabel("Learning Steps", fontsize=labelsize)
             
         if i == len(running_avg)-1 and col_idx != ncols-1:
            ax2.axis("on")
-           ax2.set_ylabel("epsilon")
+           ax2.set_ylabel("epsilon", fontsize=labelsize)
            ax2.yaxis.label.set_color(eps_color)
            ax2.tick_params(axis='y', colors=eps_color) 
            
            axes[row_idx,-1].axis("off")
+           
         
+    
+    for ar in axes:
+        for ax in ar: 
+            ax.xaxis.set_major_formatter(FuncFormatter(format_ticks))    
+            ax.tick_params(axis='both', which='major', labelsize=15)
+            
+    for ax in axes2:
+        ax.tick_params(axis='both', which='major', labelsize=20)
+    
+    print(len(axes2))
+    
+    
     filename = os.path.join(path,filename)
     plt.savefig(filename+".png")
     

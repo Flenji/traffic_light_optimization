@@ -19,9 +19,9 @@ import reward_fncs
 start_time = time.time()
 
 net_file = 'Networks/VI/VI.net.xml'
-route_file='Networks/VI/VI_all.rou.xml'
-observation_class = observation_spaces.CustomObservationFunction
-simulation_seconds = 3600
+route_file='Networks/VI/VI_all_fix.rou.xml'
+observation_class = observation_spaces.ComplexObservationFunction
+simulation_seconds = 6000
 
 #set parameters for using sumolib in ComplexObservationFunction
 observation_spaces.ComplexObservationFunction.net_file = net_file 
@@ -31,17 +31,17 @@ observation_spaces.ComplexObservationFunction.mode = "lane"
 
 
 ### SETTING HYPERPARAMETERS
-learning_rate = 0.0025
+learning_rate = 0.00075
 mem_size = 1000000
-eps_dec = 5e-6*2
+eps_dec = 7e-6
 batch_size = 36
-gamma = 0.99
+gamma = 0.95
 eps_min = 0.1
 replace = 1000
 checkpoint_dir = utility.createPath("model_checkpoint", "multi_agent")
 
 #Load or Save model?
-SAVE = True
+SAVE = False
 LOAD = True
 
 
@@ -50,10 +50,10 @@ env = sumo_rl.parallel_env(net_file=net_file,
                   use_gui=False,
                   num_seconds=simulation_seconds,
                   observation_class = observation_class,#ComplexObservationFunction,
-                  reward_fn = "average-speed",#reward_fncs.multi_agent_reward3, # "average-speed",
+                  reward_fn = reward_fncs.multi_agent_reward3, # "average-speed",
                   )
 
-agent_suffix = "_sObs_sRew"
+agent_suffix = "_cObs_sRew"
 
 ### Setting the DDQN Agent for every possible agent
 agents = dict.fromkeys(env.possible_agents)
@@ -74,10 +74,13 @@ for agent in agents.keys():
                                        replace = replace)
     if LOAD:
         agents[agent].load_model()
+        
+        scores = utility.load_object("scores"+agent_suffix, "results")
+        epsilons = utility.load_object("epsilons"+ agent_suffix, "results")
 
 print(f"Agents in this simulation: {[a for a in agents.keys()]}")
 
-min_learning_steps = 220000/2
+min_learning_steps = 150000
 
 def train(min_learning_steps):
     """
@@ -102,8 +105,6 @@ def train(min_learning_steps):
                     rewards[agent], terminations[agent], truncations[agent], infos[agent]
                     
                 done = termination or truncation #this is not necessary in this environment because there is no "end" of traffic
-                if done:
-                    print("is done")
                 
                 agents[agent].learn(obs, action, reward, obs_, done)
                 scores[agent].append(reward)
@@ -123,10 +124,10 @@ def train(min_learning_steps):
             print(f"learning steps taken: {learning_steps}")
         n += 1
     
-    utility.plot_learning_curves(scores, epsilons, 3, 3, filename = "model_720"+agent_suffix, path="results", mean_over=720)
+    utility.plot_learning_curves(scores, epsilons, 3, 3, filename = "model_1200"+agent_suffix, path="results", mean_over=1200)
 
 
-def test(random = False, metrics = False, use_gui = True):
+def test(random = False, metrics = False, use_gui = True, test_name = ""):
     """
     Function test the agents. If random = True, agents chose just random actions.
     """
@@ -143,7 +144,7 @@ def test(random = False, metrics = False, use_gui = True):
                       observation_class = observation_class,#ComplexObservationFunction,
                       reward_fn = "average-speed",#reward_fncs.multi_agent_reward3, # "average-speed",
                       additional_sumo_cmd = additional_sumo_cmd,#,"--edgedata-output metrics.xml",
-                      sumo_seed = 0
+                      sumo_seed = 0,
                       )
     
     
@@ -162,15 +163,15 @@ def test(random = False, metrics = False, use_gui = True):
     
     if metrics:
         file_name_old = utility.createPath("metrics","metrics.xml")
-        file_name_new = utility.createPath("metrics","metrics"+agent_suffix+".xml")
+        file_name_new = utility.createPath("metrics","metrics"+agent_suffix+"_"+test_name+".xml")
         os.rename(file_name_old,file_name_new)
 
-train(min_learning_steps)
+#train(min_learning_steps)
 env.close()
 
 end_time = time.time()
 
 print(f"Runtime {utility.get_time_formatted(end_time-start_time)}")
 
-#test(metrics=True,use_gui= False)
+#test(metrics=True,use_gui= False, test_name="all")
 

@@ -1,3 +1,3 @@
 <additional>
-    <edgeData id="teast" file="metrics/metrics.xml" aggregate="True" period="25" writeAttributes='traveltime speed occupancy waitingTime timeLoss density' />
+    <edgeData id="metrics" file="metrics/metrics.xml" aggregate="True" period="25" writeAttributes='traveltime speed occupancy waitingTime timeLoss density' />
 </additional>
