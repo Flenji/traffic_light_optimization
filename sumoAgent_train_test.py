@@ -19,16 +19,18 @@ import reward_fncs
 
 start_time = time.time()
 
-net_file = 'Networks/single_agent_networks/1w/1w.net.xml'
-test_suffix='_low'
-route_file='Networks/single_agent_networks/1w/1w'+test_suffix+'.rou.xml'
-observation_class = observation_spaces.ObservationFunction1
-reward_fn = reward_fncs._combined_reward1
+net_file = 'Networks/VI/VI.net.xml'
+route_file='Networks/VI/VI_all_fix.rou.xml'
+observation_class = observation_spaces.CustomObservationFunction
+simulation_seconds = 6000
+
+reward_fn = 'average-speed'#reward_fncs._combined_reward1
+
 
 #set parameters for using sumolib in ComplexObservationFunction
-#custom_observation.ComplexObservationFunction.net_file = net_file 
-#custom_observation.ComplexObservationFunction.radius = 1
-#custom_observation.ComplexObservationFunction.mode = "lane"
+observation_spaces.ComplexObservationFunction.net_file = net_file 
+observation_spaces.ComplexObservationFunction.radius = 1
+observation_spaces.ComplexObservationFunction.mode = "lane"
 
 ### SETTING HYPERPARAMETERS
 learning_rate = 0.0025
@@ -48,12 +50,12 @@ LOAD = True
 env = sumo_rl.parallel_env(net_file=net_file,
                   route_file=route_file,
                   use_gui=False,
-                  num_seconds=3600,
+                  num_seconds=simulation_seconds,
                   observation_class = observation_class,
                   reward_fn = reward_fn,
                   )
 
-agent_suffix = "_1w_obs1_rew1"
+agent_suffix = "_sObs_sRew"
 
 ### Setting the DDQN Agent for every possible agent
 agents = dict.fromkeys(env.possible_agents)
@@ -80,15 +82,17 @@ for agent in agents.keys():
 
 print(f"Agents in this simulation: {[a for a in agents.keys()]}")
 
-num_simulations = 175
+min_learning_steps = 1#220000/2
 
-def train(num_simulations):
+def train(min_learning_steps):
     """
     Trains the agents for minimum min_learning_steps. If the one learning episode ends (the simulations ends)
     and the ammount of learning steps taken is >= min_learning_steps the training is done.
     """
     learning_steps = 0
-    for n in range(num_simulations):
+    n = 0
+    while(learning_steps <= min_learning_steps):
+        observations = env.reset()[0]
         observations = env.reset()[0]
         print(f"Generation: {n}")
         while env.agents: #contains agents as long simulation is running
@@ -156,7 +160,8 @@ def test(random = False, metrics = False, use_gui = True, test_name = ""):
         
         observations_, rewards, terminations, truncations, infos = env.step(actions)
         observations = observations_ #setting new observation as current observation
-        
+    
+    env.close()
     if metrics:
         file_name_old = utility.createPath("metrics","metrics.xml")
         file_name_new = utility.createPath("metrics","metrics"+agent_suffix+"_"+test_name+".xml")
