@@ -1,10 +1,6 @@
 # Dynamic traffic control with Double Deep Q-Learning 
 This is the repository containing the scripts and files related to the research portraied by the paper "Dynamic traffic control with Double Deep Q-Learning".  
 
-## Features
-
-Highlight the key features of your project.
-
 ### Prerequisites
 
 Before running scripts of this project, make sure to have the reqiured packages and programs installed. 
