@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Nov  3 14:25:12 2023
-
-@author: hanne
 To learn how to implement Deep-Q-Learning in Python, an online course 
 "deep-q-learning-from-paper-to-code" by Phil Tabor was followed.
 
 The code follows the structure of his implementtion which can be found on 
 GitHub:  https://github.com/philtabor/Deep-Q-Learning-Paper-To-Code
+
+This class contains classes for the DDQN networks and the agent and the memory of the agent.
+Authors: AAU CS (IT) 07 - 03
 """
 
 import random
@@ -39,6 +39,10 @@ class Memory():
         self.terminal = np.zeros([memory],dtype = np.uint8) #information about when an environment is done
         
     def sample_memories(self,batch_size):
+        """
+        Samples a number of memories corresponding to the batch_size. Returns np.arrays for states,
+        actions, rewards, new states and dones. 
+        """
         max_mem = min(self.idx, self.memory)
         sample_idx = np.random.choice(max_mem, size=batch_size, replace=False) #for choosing random transitions
         
@@ -52,6 +56,10 @@ class Memory():
             sample_dones
     
     def store_transition(self,state, action, reward, state_, done):
+        """
+        Stores an experience consisting of <state,action,reward, new state, done>
+        in the memory.
+        """
         idx = self.idx%self.memory
         self.states[idx] = state
         self.actions[idx] = action
@@ -165,6 +173,9 @@ class DDQN_deeper(nn.Module):
 
         
 class Agent():
+    """
+    This class implements the agent's functionalities.
+    """
     def __init__(self, learning_rate, input_dim, n_actions, mem_size, batch_size,\
                  name, checkpoint_dir, gamma = 0.99, eps_max = 1, eps_min = 0.01,\
                      eps_dec = 5e-6, replace = 1000, deeper=False):
@@ -257,17 +268,26 @@ class Agent():
         
         
     def update_target_network(self):
+        """
+        Updates the parameters of the target network if there have been |replace| learning
+        steps.
+        """
         if self.learning_counter % self.replace == 0: #update target network only every replace-steps
             state_dict = self.online_q.state_dict()
             self.target_q.load_state_dict(state_dict)
       
             
     def decrement_epsilon(self):
+        """
+        Decrements epsilon if the current epsilon is greater than the minimum set epsilon. 
+        """
         self.epsilon = self.epsilon - self.eps_dec if self.epsilon - self.eps_dec > self.eps_min\
             else self.eps_min
    
     def learn(self,s,a,r,s_,d):
-        
+        """
+        Learning function for updating the agent's parameter.
+        """
         self.store_transition(s, a, r, s_, d)
         
         if self.memory.idx < self.batch_size:

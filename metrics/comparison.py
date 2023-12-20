@@ -22,10 +22,13 @@ font = {'size'   : 18}
 
 matplotlib.rc('font', **font)
 
-foldername = "combined_flow"
+foldername = "high_flow"
 filenames = [os.path.join(foldername,file) for file in os.listdir(foldername) if file.endswith(".xml")]
 
 def fixed_first(li):
+    """
+    Helper function to return the filelist with the fixed cycle metric file first.
+    """
     res = []
     for el in li:
         if "fixed" in el:

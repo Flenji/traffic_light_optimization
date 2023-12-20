@@ -82,7 +82,7 @@ for agent in agents.keys():
 
 print(f"Agents in this simulation: {[a for a in agents.keys()]}")
 
-min_learning_steps = 1#220000/2
+min_learning_steps = 1201#220000/2
 
 def train(min_learning_steps):
     """

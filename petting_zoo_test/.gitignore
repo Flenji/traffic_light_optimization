@@ -1,8 +1,0 @@
-__pycache__
-scores
-epsilons
-plotting/*
-!plotting/.gitkeep
-model_checkpoint/*
-!model_checkpoint/.gitkeep
-results/*

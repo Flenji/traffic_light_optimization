@@ -34,7 +34,9 @@ def save_object(obj ,filename, path = ""):
     
 
 def plot_learning_curve(scores, epsilons, filename, path ="", mean_over = 10):
-    
+    """
+    Plots the learning curve for a single agent training.
+    """
     filename = os.path.join(path,filename)
     N = int(len(scores)/mean_over)
     running_avg = np.empty(N)
@@ -78,7 +80,10 @@ def format_ticks(value, pos):
     return f'{value / 1e4:.0f}e4'
     
 def plot_learning_curves(scores, epsilons, nrows, ncols,  filename, figsize=(16, 8),  path = "", mean_over = 10):
-    
+    """
+    Plota the learning curve for multi-agent training. nrows * ncols should be equal to 
+    the number of agents that have been trained.
+    """
     labelsize = 20
     n_agents = len(scores)
     
@@ -160,6 +165,9 @@ def plot_learning_curves(scores, epsilons, nrows, ncols,  filename, figsize=(16,
     plt.savefig(filename+".png")
     
 def createPath(*args):
+    """
+    Creates a path out of multiple arguments.
+    """
     return os.path.join(*args)
 
 
