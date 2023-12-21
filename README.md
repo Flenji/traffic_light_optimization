@@ -1,5 +1,5 @@
-# Dynamic traffic control with Double Deep Q-Learning 
-This is the repository containing the scripts and files related to the research portraied by the paper "Dynamic traffic control with Double Deep Q-Learning".  
+# Towards Optimized Traffic Light Systems using Multi-Agent Reinforcement Learning
+This is the repository containing the scripts and files related to the research portraied by the paper "Towards Optimized Traffic Light Systems using Multi-Agent Reinforcement Learning".  
 
 ### Prerequisites
 
